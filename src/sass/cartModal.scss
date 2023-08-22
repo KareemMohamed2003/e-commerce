@@ -1,0 +1,8 @@
+
+@use "./variables.scss";
+@use './mixins.scss';
+.cart-modal{
+
+@include mixins.container-style(20rem,30rem,unset, variables.$glass-bg,15px);
+
+}

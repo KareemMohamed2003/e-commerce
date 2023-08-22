@@ -1,0 +1,284 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,200&display=swap");
+nav {
+  height: 7rem;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Raleway", sans-serif;
+}
+
+.category-heading {
+  font-style: italic;
+  color: rgb(0, 0, 0);
+  font-size: 2rem;
+  font-family: "Raleway", sans-serif;
+}
+
+.link {
+  font-size: 1.3rem;
+  list-style: none;
+  transition: all 0.7s;
+}
+
+.link:active {
+  background: linear-gradient(206.58deg, #38D551 16.68%, rgba(8, 18, 4, 0) 200.79%);
+}
+
+.nav-icons {
+  align-self: center;
+  display: flex;
+  margin-left: 30rem;
+  margin: 1rem;
+}
+.nav-icons div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+svg {
+  transition: all 1s;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+  position: relative;
+  background: rgb(255, 255, 255);
+  height: 0.25rem;
+  width: 3.4rem;
+  margin: 11px 0;
+  margin-top: 0.3rem;
+  transition: all 0.4s;
+  border-radius: 15px;
+}
+
+ul {
+  position: relative;
+  z-index: 4;
+  color: black;
+}
+
+.menu {
+  border-radius: 10px;
+  position: absolute;
+  margin-top: 7rem;
+  left: 1rem;
+  animation: menuAnimation 0.5s ease-in;
+  transition: all 1s;
+  z-index: 100;
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(27px);
+  background: rgba(217, 217, 217, 0.363);
+}
+.menu a {
+  margin: 0.3rem;
+  color: white;
+  color: rgb(3, 3, 7);
+  height: 100%;
+  position: relative;
+  z-index: 110;
+}
+
+.transform.bar1 {
+  transform: translate(0, 20px) rotate(-45deg);
+}
+
+.transform.bar3 {
+  transform: translate(0, -20px) rotate(45deg);
+}
+
+.transform.bar2 {
+  opacity: 0;
+}
+
+.menu-heading {
+  font-size: 2rem;
+  color: black;
+}
+
+.bars {
+  border-radius: 50%;
+  margin-left: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 0.7rem;
+}
+
+.username {
+  margin-right: 1rem;
+  align-self: center;
+}
+
+.home-icon {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.home-icon-container {
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(227.35deg, #F26719 -2.41%, #393635 172.48%);
+  border-radius: 50%;
+  height: 4.2rem;
+  width: 4.2rem;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+}
+.home-icon-container svg {
+  align-self: center;
+}
+
+a {
+  color: rgb(15, 15, 15);
+  text-decoration: none;
+}
+
+h1,
+h2 {
+  color: black;
+}
+
+.logout-icon {
+  height: 3rem;
+  width: 3rem;
+}
+
+.cart-icon {
+  height: 3.2rem;
+  width: 3.2rem;
+}
+
+.cart-icon-container {
+  position: relative;
+  height: 5rem;
+  width: 5rem;
+  border: unset;
+  background: linear-gradient(219.74deg, #07A6FF 11.94%, rgba(7, 166, 255, 0) 177.3%);
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+.cart-icon-container svg {
+  margin: auto;
+}
+
+.cart-counter {
+  height: 2.4rem;
+  width: 2.4rem;
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  top: 80%;
+  left: 3rem;
+  bottom: 10%;
+  color: black;
+  background: linear-gradient(230.22deg, #FFC701 -33.43%, #FFBB0B 182.65%);
+  align-items: center;
+  font-size: 0.8rem;
+}
+.cart-counter span {
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin: auto;
+}
+
+.logout-icon-container {
+  position: relative;
+  background: linear-gradient(219.74deg, #07A6FF 11.94%, rgba(7, 166, 255, 0) 177.3%);
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+}
+.logout-icon-container svg {
+  margin: auto;
+}
+
+@media screen and (max-width: 750px) {
+  .home-icon-container {
+    height: 3rem;
+    width: 3rem;
+    margin-left: 1rem;
+  }
+
+  .home-icon {
+    height: 1.7rem;
+    width: 1.7rem;
+  }
+
+  .cart-icon-container {
+    position: relative;
+    height: 3rem;
+    width: 3rem;
+    border: unset;
+    background: linear-gradient(219.74deg, #07A6FF 11.94%, rgba(7, 166, 255, 0) 177.3%);
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+  .cart-icon-container svg {
+    margin: auto;
+  }
+
+  .cart-icon {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  .cart-counter {
+    height: 1.5rem;
+    width: 1.5rem;
+    left: 2rem;
+    top: 70%;
+  }
+
+  .logout-icon-container {
+    position: relative;
+    background: linear-gradient(219.74deg, #07A6FF 11.94%, rgba(7, 166, 255, 0) 177.3%);
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+  }
+  .logout-icon-container svg {
+    margin: auto;
+  }
+
+  .logout-icon {
+    height: 1.7rem;
+    width: 1.7rem;
+  }
+
+  .bar1, .bar2, .bar3 {
+    width: 3rem;
+  }
+
+  .username {
+    margin-right: 0.6rem;
+    font-size: 1.2rem;
+  }
+
+  .menu-heading {
+    font-size: 1.7rem;
+    color: black;
+  }
+
+  .category-heading {
+    font-size: 1.5rem;
+  }
+}
+@keyframes menuAnimation {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/*# sourceMappingURL=navbar.css.map */

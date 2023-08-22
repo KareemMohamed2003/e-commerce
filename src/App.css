@@ -1,0 +1,34 @@
+
+
+*{
+  margin: 0rem;
+  box-sizing: border-box;
+}
+
+.App {
+  text-align: center;
+
+  /* background:radial-gradient(105.61% 105.61% at 23.75% -11.45%, #6D0E99 15.27%, #1B1616 100%);
+  background:radial-gradient(96.2% 98.07% at 82.76% 0%, #1991B7 0%, #175D59 36.85%, #1B161A 100%);
+  */
+
+}
+
+html{
+
+  min-height:fit-content;
+}
+
+
+body{
+  color: azure;
+  min-height: 100%;
+
+}
+
+
+
+#root{
+  background: radial-gradient(137.07% 137.03% at 23.75% -11.45%, #0E7899 0.12%, rgba(13, 15, 15, 0.91) 100%);
+  min-height: 100vh;
+}

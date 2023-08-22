@@ -1,0 +1,19 @@
+.overlay {
+
+   width: 100vw;
+   background: rgba(0, 0, 0, 0.9);
+   height: 100vh;
+   position: fixed;
+   width: 100%;
+   top: 0;
+   z-index: 120;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+#portal {
+   position: fixed;
+   height: 100vh;
+   z-index: 120;
+}

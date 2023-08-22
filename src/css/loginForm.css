@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,200&display=swap");
+.form-page {
+  background: radial-gradient(105.61% 105.61% at 23.75% -11.45%, #6D0E99 15.27%, #1B1616 100%);
+}
+
+.loginForm {
+  height: 40rem;
+  width: 35rem;
+  margin: auto;
+  background: radial-gradient(110.56% 132.21% at 120.66% 118.7%, #A01BDF 9.63%, rgba(27, 22, 22, 0.28) 100%);
+  display: flex;
+  justify-content: center;
+  animation: popupAnimation 1s ease;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 0.9rem;
+  box-shadow: 5px 4px 32px rgba(151, 40, 239, 0.25);
+}
+.loginForm h1 {
+  font-size: 3rem;
+  font-family: "Raleway", sans-serif;
+  color: white;
+}
+.loginForm form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.loginForm input {
+  border-radius: 10px;
+  border: none;
+  width: 25rem;
+  margin-bottom: 0.4rem;
+  outline: none;
+  font-size: 2.4rem;
+}
+.loginForm input:focus {
+  border: 4px solid rgb(154, 13, 248);
+  border-radius: 20px;
+}
+.loginForm input:focus::placeholder {
+  opacity: 0;
+}
+.loginForm input {
+  margin-bottom: 1.8rem;
+  background: rgba(255, 255, 255, 0.829);
+  width: 85%;
+  font-size: 2.3rem;
+}
+
+::placeholder {
+  color: rgb(121, 116, 116);
+  opacity: 1;
+  /* Firefox */
+}
+
+@keyframes popupAnimation {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.sign-up-btn {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(206.58deg, #38D551 16.68%, rgba(8, 18, 4, 0) 200.79%);
+  color: white;
+  width: 50%;
+  padding: 1rem;
+  font-size: 1.6rem;
+  border: none;
+  border-radius: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.sign-up-btn:active {
+  transform: scale(0.8);
+}
+
+.form-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-in-btn {
+  color: white;
+  width: 50%;
+  padding: 1rem;
+  font-size: 1.6rem;
+  border: none;
+  border-radius: 20px;
+  font-weight: 700;
+  transition: all 0.2s;
+  background: linear-gradient(260.38deg, #5A0DD7 -54.19%, #C216FF 149.31%);
+  box-shadow: 0px 4px 19px -2px #A635FF;
+}
+
+.link {
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: azure;
+  background: linear-gradient(219.74deg, #07A6FF 11.94%, rgba(7, 166, 255, 0) 177.3%);
+}
+.link h2 {
+  color: white;
+  display: inline;
+}
+.link h2 span {
+  width: 100%;
+  display: block;
+  border-bottom: 3px solid white;
+  position: relative;
+}
+
+.error-message {
+  color: red;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.registerationIcon {
+  height: 8rem;
+  width: 8rem;
+}
+
+@media screen and (max-width: 600px) {
+  .error-message {
+    color: red;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .sign-up-btn {
+    width: 45%;
+    padding: 0.8rem;
+    font-size: 1.3rem;
+  }
+
+  .loginForm {
+    margin: 0rem;
+    border-radius: 0px;
+    justify-content: space-evenly;
+    height: 100vh;
+    width: 100vw;
+    font-size: 0.9rem;
+  }
+  .loginForm input {
+    font-size: 1.6rem;
+  }
+  .loginForm h1 {
+    font-size: 2rem;
+  }
+
+  .sign-in-btn {
+    padding: 0.8rem;
+    font-size: 1.3rem;
+  }
+
+  .link {
+    padding: 0.3rem;
+    border-radius: 10px;
+    color: azure;
+  }
+  .link h2 {
+    font-size: 1.3rem;
+  }
+  .link h2 span {
+    width: 100%;
+    display: block;
+    border-bottom: 3px solid white;
+    position: relative;
+  }
+}
+
+/*# sourceMappingURL=loginForm.css.map */

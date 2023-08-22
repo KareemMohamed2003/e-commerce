@@ -1,0 +1,50 @@
+@use "./mixins.scss";
+
+.product-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  @include mixins.container-style(25rem, 40rem, unset, rgba(217, 217, 217, 0.623), 10px);
+  color: black;
+  font-size: 1.5rem;
+  backdrop-filter: blur(27px);
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  animation: popupAnimation 0.4s ease-in-out;
+  margin: 1.5rem;
+}
+
+.product-description {
+  font-size: 2rem;
+}
+
+.product-modal-btn {
+  background: #000000;
+}
+
+@media screen and (max-width:800px) {
+  .product-modal {
+    font-size: 1.2rem;
+
+  }
+
+  .product-description {
+    font-size: 1.5rem;
+  }
+
+}
+
+@media screen and (max-width:650px) {
+  .product-modal {
+    font-size: 1rem;
+    @include mixins.container-style(20rem, 35rem, unset, rgba(217, 217, 217, 0.623), 10px);
+
+  }
+
+  .product-modal-btn {
+    padding: 0.75rem;
+    font-size: 1.4rem;
+  }
+
+
+}

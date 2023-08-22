@@ -1,0 +1,190 @@
+@use "./variables.scss";
+@use "./mixins.scss";
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,200&display=swap');
+
+.form-page {
+   background: variables.$radial-purple;
+}
+
+.loginForm {
+
+   h1 {
+      font-size: 3rem;
+      font-family: "Raleway", sans-serif;
+      color: white;
+   }
+
+   @include mixins.form-styling(40rem, 35rem, variables.$radial-reversed-purple);
+   animation: popupAnimation 1s ease;
+   border-radius: 25px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+   align-items: center;
+   font-size: 0.9rem;
+
+   input {
+      margin-bottom: 1.8rem;
+      background: rgba(255, 255, 255, 0.829);
+      width: 85%;
+      font-size: 2.3rem;
+   }
+
+   box-shadow: 5px 4px 32px rgba(151, 40, 239, 0.25);
+}
+
+
+
+::placeholder {
+   color: rgb(121, 116, 116);
+   opacity: 1;
+   /* Firefox */
+}
+
+@keyframes popupAnimation {
+   0% {
+      opacity: 0.2;
+      transform: scale(0.5);
+
+   }
+
+   100% {
+      opacity: 1;
+      transform: scale(1);
+
+   }
+
+}
+
+.sign-up-btn {
+
+   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+   background: variables.$dark-green;
+   color: white;
+   width: 50%;
+   padding: 1rem;
+   font-size: 1.6rem;
+   border: none;
+   border-radius: 15px;
+   font-weight: 700;
+   transition: all .2s;
+
+}
+
+.sign-up-btn:active {
+   transform: scale(0.8)
+}
+
+.form-page {
+   min-height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.sign-in-btn {
+
+   color: white;
+   width: 50%;
+   padding: 1rem;
+   font-size: 1.6rem;
+   border: none;
+   border-radius: 20px;
+   font-weight: 700;
+   transition: all .2s;
+   background: variables.$purple-blue-linear;
+   box-shadow: 0px 4px 19px -2px #A635FF;
+}
+
+.link {
+   padding: 0.5rem;
+   border-radius: 10px;
+   color: azure;
+
+   h2 {
+      span {
+         width: 100%;
+         display: block;
+         border-bottom: 3px solid white;
+         position: relative;
+      }
+
+      color: white;
+      display: inline;
+   }
+
+   background: linear-gradient(219.74deg, #07A6FF 11.94%, rgba(7, 166, 255, 0) 177.3%);
+}
+
+.error-message {
+   color: red;
+   font-size: 1.2rem;
+   font-weight: bold;
+}
+
+.registerationIcon {
+   height: 8rem;
+   width: 8rem;
+}
+
+@media screen and (max-width: 600px) {
+
+
+   .error-message {
+      color: red;
+      font-size: 0.85rem;
+      font-weight: bold;
+   }
+   .sign-up-btn {
+
+      width: 45%;
+      padding: 0.8rem;
+      font-size: 1.3rem;
+
+   
+   }
+   .loginForm {
+      margin: 0rem;
+      border-radius: 0px;
+      justify-content: space-evenly;
+
+      height: 100vh;
+      width: 100vw;
+      font-size: 0.9rem;
+
+      input {
+
+         font-size: 1.6rem;
+      }
+
+      h1 {
+         font-size: 2rem;
+      }
+   }
+
+   .sign-in-btn {
+      padding: 0.8rem;
+      font-size: 1.3rem;
+   }
+
+   .link {
+      padding: 0.3rem;
+      border-radius: 10px;
+      color: azure;
+
+      h2 {
+         font-size: 1.3rem;
+
+         span {
+            width: 100%;
+            display: block;
+            border-bottom: 3px solid white;
+            position: relative;
+         }
+
+
+      }
+
+   }
+}

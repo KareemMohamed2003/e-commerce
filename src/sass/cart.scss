@@ -1,0 +1,326 @@
+@use "./variables.scss";
+@use "./mixins.scss";
+
+.cart {
+   @include mixins.container-style(33rem, 65rem, unset, variables.$radial-aqua);
+   overflow-x: hidden;
+   overflow-y: auto;
+   position: fixed;
+   z-index: 10;
+   margin: auto;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   border-radius: 10px;
+   backdrop-filter: blur(27px);
+   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+   animation: popupAnimation 0.4s ease-in-out;
+   color: white;
+
+}
+
+.cart-item {
+
+   height: 5rem;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   font-size: 2rem;
+   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.356);
+   justify-content: space-between;
+
+}
+
+.cart-container {
+
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   margin-top: 1rem;
+}
+
+.shopping-cart-icon {
+   margin-right: 1rem;
+   height: 4rem;
+   width: 4rem;
+}
+
+.cart-heading {
+   font-size: 2rem;
+}
+
+.buttons {
+   display: flex;
+
+}
+
+.cart-text {
+   font-size: 2rem;
+}
+
+.cart-item-description {
+   font-size: 1rem;
+   margin: 1rem;
+   flex-grow: 1;
+}
+
+.cart-item-price {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-right: 0.4rem;
+   margin: 1rem;
+
+}
+
+.remove-item-icon {
+   height: 1.5rem;
+   width: 1.5rem;
+   margin: auto
+}
+
+.img-container {
+
+   background: white;
+   border: 2px solid black;
+   height: 100%;
+   width: 10%;
+
+   img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+   }
+}
+
+.add-btn {
+   @include mixins.btn-styling(3rem, 5rem, variables.$dark-green);
+   margin: 0.2rem;
+   max-width: 3rem;
+   flex-shrink: 0;
+}
+
+.subtract-btn {
+   @include mixins.btn-styling(3rem, 5rem, variables.$linear-red);
+   margin: 0.2rem;
+   max-width: 3rem;
+   flex-shrink: 0;
+}
+
+.close-btn {
+   @include mixins.btn-styling(3.5rem, 9rem, variables.$linear-red, 20px);
+   margin-top: 1rem;
+   margin-bottom: 1rem;
+   flex-shrink: 0;
+   box-shadow: variables.$red-shadow;
+}
+
+.checkout-btn {
+
+   @include mixins.btn-styling(3.5rem, 9rem, variables.$orange, 20px);
+   box-shadow: variables.$orange-shadow;
+   margin-top: 1rem;
+   margin-bottom: 1rem;
+   flex-shrink: 0;
+
+}
+
+.delete-btn {
+   @include mixins.btn-styling(3rem, 5rem, linear-gradient(208.07deg, #C0FF0E -115.54%, #ADE806 -115.51%, #FF2E00 200.84%));
+   max-width: 3rem;
+   margin: 0.2rem;
+   flex-shrink: 1;
+}
+
+.cart-item-quantity {
+
+   display: flex;
+   align-items: center;
+   margin: 1rem;
+
+}
+
+.cart-btns {
+   display: flex;
+   justify-content: space-evenly;
+   width: 50%;
+}
+
+@media screen and (max-width:1100px) {
+
+   .img-container {
+      border: none;
+      background: white;
+
+      height: 6rem;
+      width: 100%;
+      flex-shrink: 1;
+
+      img {
+         height: 100%;
+         width: 100%;
+         object-fit: contain;
+         border: none
+      }
+
+   }
+
+   .cart {
+      @include mixins.container-style(33rem, 100vw, unset, variables.$radial-aqua);
+
+      h1 {
+         font-size: 1.5rem;
+      }
+
+   }
+
+   .cart-heading {
+      font-size: 1.5rem;
+   }
+
+   .cart-item-price {
+      font-size: 1.5rem;
+      margin: 0.5rem;
+   }
+
+   .cart-item-quantity {
+
+      font-size: 1.5rem;
+      margin: 0.5em;
+   }
+
+   .close-btn {
+      @include mixins.btn-styling(3.5rem, 7rem, variables.$linear-red, 20px);
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      flex-shrink: 0;
+      box-shadow: variables.$red-shadow;
+      font-size: 1.3rem
+   }
+
+   .checkout-btn {
+
+      @include mixins.btn-styling(3.5rem, 7rem, variables.$orange, 20px);
+      box-shadow: variables.$orange-shadow;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      flex-shrink: 0;
+
+      font-size: 1.3rem
+   }
+
+   .delete-btn {
+      @include mixins.btn-styling(2.5rem, 2.5rem, linear-gradient(208.07deg, #C0FF0E -115.54%, #ADE806 -115.51%, #FF2E00 200.84%));
+
+   }
+
+   .add-btn {
+      @include mixins.btn-styling(2.5rem, 2.5rem, variables.$dark-green);
+
+   }
+
+   .subtract-btn {
+      @include mixins.btn-styling(2.5rem, 2.5rem, variables.$linear-red);
+
+   }
+
+   .cart-item {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+      height: 20rem;
+   }
+
+}
+
+@media screen and (max-width:850px) {
+   .buttons {
+      margin-bottom: 0.7rem;
+   }
+
+   .shopping-cart-icon {
+      height: 3rem;
+      width: 3rem;
+   }
+
+   .img-container {
+      background: white;
+      height: 5rem;
+
+      img {
+         height: 100%;
+         width: 100%;
+         object-fit: contain;
+         border: none
+      }
+
+   }
+
+   .cart {
+      @include mixins.container-style(33rem, 100vw, unset, variables.$radial-aqua);
+
+      h1 {
+         font-size: 1.2rem;
+      }
+
+   }
+
+   .cart-heading {
+      font-size: 1.3rem;
+   }
+
+   .cart-item-price {
+      font-size: 1.3rem;
+      margin: 0.5rem;
+   }
+
+   .cart-item-quantity {
+
+      font-size: 1.5rem;
+      margin: 0.34em;
+   }
+
+   .close-btn {
+      @include mixins.btn-styling(2.5rem, 5rem, variables.$linear-red, 20px);
+
+      font-size: 0.9rem
+   }
+
+   .checkout-btn {
+
+      @include mixins.btn-styling(2.5rem, 5rem, variables.$orange, 20px);
+
+      font-size: 0.9rem
+   }
+
+   .delete-btn {
+      @include mixins.btn-styling(2.3rem, 2.3rem, linear-gradient(208.07deg, #C0FF0E -115.54%, #ADE806 -115.51%, #FF2E00 200.84%));
+
+   }
+
+   .add-btn {
+      @include mixins.btn-styling(2.3rem, 2.3rem, variables.$dark-green);
+
+   }
+
+   .subtract-btn {
+      @include mixins.btn-styling(2.3rem, 2.3rem, variables.$linear-red);
+
+   }
+
+
+}
+
+@keyframes popupAnimation {
+   0% {
+      opacity: 0.2;
+      transform: scale(0.5);
+   }
+
+   100% {
+      opacity: 1;
+      transform: scale(1);
+
+   }
+
+}

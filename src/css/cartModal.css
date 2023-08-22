@@ -1,0 +1,9 @@
+.cart-modal {
+  height: 20rem;
+  width: 30rem;
+  border: unset;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(229.04deg, rgba(255, 255, 255, 0.16) -10.53%, rgba(255, 252, 252, 0) 107.64%);
+  border-radius: 15px;
+}
+
+/*# sourceMappingURL=cartModal.css.map */

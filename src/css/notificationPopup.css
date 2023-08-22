@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,500&display=swap");
+.notificationPopup {
+  font-family: "Raleway", sans-serif;
+  height: 15rem;
+  width: 28rem;
+  border: unset;
+  background: rgba(14, 12, 12, 0.46);
+  border-radius: 10px;
+  transition: 2s all;
+  animation: slideDown 2s ease;
+  position: absolute;
+  margin: 2rem;
+  backdrop-filter: blur(27px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  transform: translateY(2rem);
+  justify-content: space-evenly;
+  backdrop-filter: blur(35px);
+}
+.notificationPopup h1 {
+  font-size: 2.2rem;
+}
+
+.add-notification::before {
+  content: "";
+  position: absolute;
+  top: 7.5rem;
+  bottom: 0;
+  background: linear-gradient(247.28deg, #2DF00D 1.03%, rgba(105, 254, 21, 0.61) 101.32%, #69FE15 101.33%);
+  background: linear-gradient(247.28deg, #2DF00D 1.03%, rgb(95, 255, 2) 101.32%, #69FE15 101.33%);
+  filter: blur(58.5px);
+  height: 11.5%;
+  width: 84%;
+  color: white;
+}
+
+.delete-notification:before {
+  top: 7.5rem;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  background: #ff0000;
+  filter: blur(54.5px);
+  height: 11.5%;
+  width: 84%;
+  color: white;
+}
+
+.checkout-notification::before {
+  background: #FF7A00;
+  position: absolute;
+  top: 7.5rem;
+  bottom: 0;
+  content: "";
+  filter: blur(54.5px);
+  height: 11.5%;
+  width: 84%;
+  color: white;
+}
+
+.notification-icon-container {
+  display: flex;
+  align-items: center;
+  height: 8rem;
+  width: 10rem;
+  border-radius: 10px;
+  justify-content: center;
+}
+.notification-icon-container svg {
+  height: 100%;
+  width: 100%;
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(0rem);
+  }
+  100% {
+    transform: translateY(2rem);
+  }
+}
+@media screen and (max-width: 850px) {
+  .notificationPopup {
+    height: 13rem;
+    width: 21rem;
+    border: unset;
+    background: rgba(14, 12, 12, 0.46);
+    border-radius: 10px;
+  }
+  .notificationPopup h1 {
+    font-size: 1.8rem;
+  }
+
+  .notification-icon-container {
+    display: flex;
+    align-items: center;
+    height: 4rem;
+    width: 6rem;
+    border-radius: 10px;
+  }
+
+  .add-notification::before {
+    top: 6.5rem;
+    height: 9%;
+    width: 84%;
+    color: white;
+  }
+
+  .delete-notification:before {
+    top: 6.5rem;
+    height: 9%;
+    width: 84%;
+    color: white;
+  }
+
+  .checkout-notification::before {
+    top: 6.5rem;
+    height: 9%;
+    width: 84%;
+    color: white;
+  }
+}
+
+/*# sourceMappingURL=notificationPopup.css.map */

@@ -1,0 +1,42 @@
+@use "./variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,200&display=swap');
+
+.featured-products {
+  display: flex;
+  justify-content: space-evenly;
+  font-family: "Raleway", sans-serif;
+
+}
+
+.homepage {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 2rem;
+  font-family: "Raleway", sans-serif;
+
+}
+.product-category{
+  font-size: 2rem;
+}
+@media screen and (max-width:900px){
+  .homepage {
+ 
+    grid-template-columns: auto auto ;
+    align-items: center;
+
+  }
+  .product-category{
+    font-size: 1.5rem;
+  }
+}
+
+@media  screen and (max-width:650px) {
+  .homepage {
+  display: flex;
+  flex-direction: column;
+  }
+  .product-category{
+    font-size: 1.2rem;
+  }
+
+}
