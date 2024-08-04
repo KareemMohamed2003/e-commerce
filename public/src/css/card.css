@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,200&display=swap");
+.card-overlay {
+  height: 20rem;
+  width: 15rem;
+  position: relative;
+  border-radius: 10px;
+  animation: popupAnimation 0.4s;
+}
+
+@keyframes popupAnimation {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/*# sourceMappingURL=card.css.map */
