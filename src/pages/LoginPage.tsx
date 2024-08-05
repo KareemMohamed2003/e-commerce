@@ -17,8 +17,8 @@ import { writeToDB, eCommerceAuth, eCommerceDB } from "../firebase";
 import UseInitializeApp from "../hooks/UseLogin";
 
 // console.log(localStorage.getItem("persist:root"))
-const storage = JSON.parse(localStorage.getItem("persist:root")!)
-console.log(storage?.user)
+const storage = JSON.parse(localStorage.getItem("persist:root")!);
+// console.log(storage?.user);
 // const data = JSON.parse(storage)
 // console.log(storage)
 export const addUserEntry = async (
@@ -136,10 +136,10 @@ export default function LoginPage() {
     fetchUserData,
   } = UseInitializeApp();
   const currentUser = useSelector((state: any) => state.user);
-  console.log(auth.currentUser);
+  // console.log(auth.currentUser);
   // this code is causing a lot of logs and trouble .
-  console.log("redux state with store.getState", store.getState())
-  console.log("redux store with hooks", currentUser)
+  // console.log("redux state with store.getState", store.getState());
+  // console.log("redux store with hooks", currentUser);
   // we should use an Action instead to handle the user data fetching and redirection as well .
   // useEffect(() => {
   //   onAuthStateChanged(auth, (user) => {
@@ -151,15 +151,17 @@ export default function LoginPage() {
   // }, []);
   // dispatchToStore(signOut())
   var localStorageSpace = function () {
-    var allStrings = '';
+    var allStrings = "";
     for (var key in window.localStorage) {
       if (window.localStorage.hasOwnProperty(key)) {
         allStrings += window.localStorage[key];
       }
     }
-    return allStrings ? 3 + ((allStrings.length * 16) / (8 * 1024)) + ' KB' : 'Empty (0 KB)';
+    return allStrings
+      ? 3 + (allStrings.length * 16) / (8 * 1024) + " KB"
+      : "Empty (0 KB)";
   };
-  console.log("local storage space", localStorageSpace())
+  console.log("local storage space", localStorageSpace());
   useEffect(() => {
     // console.log(userCredentials)
 
@@ -232,10 +234,7 @@ export default function LoginPage() {
     <section className="form-page">
       {toggleModal && (
         <Portal>
-          <LoginModal
-            setLoading={setLoading}
-            setModalToggle={setModalToggle}
-          />
+          <LoginModal setLoading={setLoading} setModalToggle={setModalToggle} />
         </Portal>
       )}
 

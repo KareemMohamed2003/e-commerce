@@ -15,7 +15,7 @@
   }
 
   @include mixins.form-styling(40rem, 35rem, variables.$radial-reversed-purple);
-  animation: popupAnimation 1s ease;
+  // animation: popupAnimation 1s ease;
   border-radius: 25px;
   display: flex;
   flex-direction: column;

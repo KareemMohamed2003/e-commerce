@@ -30,38 +30,47 @@ export const sendTransaction = async (
   auth: any,
   currentUserId: string,
 ) => {
-  const total = getCartTotal(cartItems.cart);
-  const getTransaction = await fetch(
-    "https://admin-dashboard-f3c0a-default-rtdb.firebaseio.com/transactions.json",
-  );
-  const transactionRes: any = await getTransaction.json();
 
-  if (transactionRes) {
-    const fields = [
-      ...transactionRes,
-      {
-        checkoutDate: dateFormatter.format(new Date()),
-        purchasedItems: [...cartItems.cart],
-        username: auth.currentUser?.displayName,
-        email: auth.currentUser?.email,
-        total: total,
-        userId: currentUserId,
-      },
-    ];
-    writeToDB("/transactions", fields, eCommerceDB);
-  } else {
-    const fields = [
-      {
-        checkoutDate: dateFormatter.format(new Date()),
-        purchasedItems: [...cartItems.cart],
-        username: auth.currentUser?.displayName,
-        email: auth.currentUser?.email,
-        total: total,
-        userId: currentUserId,
-      },
-    ];
-    writeToDB("/transactions", fields, eCommerceDB);
+  try {
+    const total = getCartTotal(cartItems.cart);
+    const getTransaction = await fetch(
+      "https://admin-dashboard-f3c0a-default-rtdb.firebaseio.com/transactions.json",
+    );
+    const transactionRes: any = await getTransaction.json();
+
+    if (transactionRes) {
+      const fields = [
+        ...transactionRes,
+        {
+          checkoutDate: dateFormatter.format(new Date()),
+          purchasedItems: [...cartItems.cart],
+          username: auth.currentUser?.displayName,
+          email: auth.currentUser?.email,
+          total: total,
+          userId: currentUserId,
+        },
+      ];
+      writeToDB("/transactions", fields, eCommerceDB);
+      return true
+    } else {
+      const fields = [
+        {
+          checkoutDate: dateFormatter.format(new Date()),
+          purchasedItems: [...cartItems.cart],
+          username: auth.currentUser?.displayName,
+          email: auth.currentUser?.email,
+          total: total,
+          userId: currentUserId,
+        },
+      ];
+      writeToDB("/transactions", fields, eCommerceDB);
+      return true
+    }
+  } catch (error) {
+    return false
   }
+
+
 
   // delete the cart in the Database
   removeFromDB(`/users/${currentUserId}/cart`, eCommerceDB);

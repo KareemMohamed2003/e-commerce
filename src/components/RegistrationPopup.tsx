@@ -6,6 +6,7 @@ import RegisterationIcon from "./svg-components/RegisterationIcon";
 export default function Popup(props: any) {
   const dispatchToStore = useDispatch();
   const navigate = useNavigate();
+  console.log("registeration pop");
   return (
     <div className="popup">
       <h1>your account has been created </h1>

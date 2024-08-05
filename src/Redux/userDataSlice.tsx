@@ -1,14 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 const initialState: any = {
   userId: null,
   cartItems: [],
   favouriteItems: [],
   errorMessage: false,
-  expirationTime: null
+  expirationTime: null,
 };
 
 export const userDataSlice: any = createSlice({
-
   name: "userDataSlice",
   reducers: {
     setUserSlice: (state, action) => {
@@ -18,7 +17,7 @@ export const userDataSlice: any = createSlice({
     signOut: (state, action) => {
       return { ...initialState };
     },
-    addItem: (state, action) => { },
+    addItem: (state, action) => {},
     getError: (state, action) => {
       switch (action.payload.errorCode) {
         case "internal-error":
@@ -72,7 +71,6 @@ export const userDataSlice: any = createSlice({
   },
 
   initialState,
-
 });
 
 export default userDataSlice.reducer;

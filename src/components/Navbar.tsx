@@ -93,8 +93,6 @@ function Navbar() {
   const cartState = useSelector((state: any) => state.cartState);
   const userData = useSelector((state: any) => state.user);
 
-  console.log("navbar")
-  console.log("cart state in navbar", cartState)
   useEffect(() => {
     if (cartState.checkout) {
       dispatchReducer({ type: "displayCartNotification" });
@@ -126,9 +124,16 @@ function Navbar() {
               setMenuToggle(!toggleMenu);
             }}
           >
-            <div className={toggleMenu ? "transform bar1" : "bar1"}></div>
+            {new Array(3).fill(0).map((_, index) => (
+              <div
+                className={
+                  toggleMenu ? `transform bar${index + 1}` : `bar${index + 1}`
+                }
+              ></div>
+            ))}
+            {/* <div className={toggleMenu ? "transform bar1" : "bar1"}></div>
             <div className={toggleMenu ? "transform bar2" : "bar2"}></div>
-            <div className={toggleMenu ? "transform bar3" : "bar3"}></div>
+            <div className={toggleMenu ? "transform bar3" : "bar3"}></div> */}
           </div>
 
           <section className="home-icon-container">
@@ -149,11 +154,12 @@ function Navbar() {
             <h2 className="category-heading">electronics</h2>
             {electronics.map((el) => (
               <Link
-                onClick={() =>
-                  dispatch(displayProducts({ state: ProductsState, type: el }))
-                }
+                onClick={() => {
+                  console.log(el);
+                  dispatch(displayProducts({ state: ProductsState, type: el }));
+                }}
                 key={el}
-                to={`home/SelectedCategory`}
+                to={`/home/SelectedCategory`}
                 className="link"
               >
                 {/* <div

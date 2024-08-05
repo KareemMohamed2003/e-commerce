@@ -23,7 +23,7 @@ export default function UseLogin() {
     console.log(queryRes);
     dispatchToStore(getCart(queryRes.cart)); // this would only fetch the user Cart when the user  logs in
     const userInfo = { ...queryRes, userId };
-    console.log(userInfo)
+    console.log(userInfo);
     dispatchToStore(setUserSlice({ userInfo }));
     console.log(userCredentials);
     setLoading(false);
@@ -31,11 +31,10 @@ export default function UseLogin() {
   };
   useEffect(() => {
     if (userCredentials) {
-      console.log("user credentials", userCredentials)
+      console.log("user credentials", userCredentials);
       fetchUserData(userCredentials?.id);
 
-      setUserCredentials(null)
-
+      setUserCredentials(null);
     }
   }, [userCredentials]);
   return {

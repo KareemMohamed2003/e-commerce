@@ -10,7 +10,7 @@ export const firebaseData = createApi({
       query: (name: string | null) => `${name}`,
     }),
   }),
-})
+});
 
 // console.log(firebaseData)
 export const { useGetProductsDataQuery } = firebaseData;

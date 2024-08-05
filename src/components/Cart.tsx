@@ -1,70 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Fragment, useEffect, useReducer } from "react";
-import { getAuth } from "firebase/auth";
-import { checkout, getCart, resetCart } from "../Redux/cartSlice";
-import { sendTransaction } from "../Functions";
+import { Fragment, useEffect } from "react";
 import CartItem from "./CartItem";
-import Loader from "./Loader";
 import CartIcon from "./svg-components/CartIcon";
 import "../sass/cart.scss";
 import "../sass/loader.scss";
-import TransactionLoader from "./TransactionLoader";
+import useCart from "../hooks/useCart";
+import useTransaction from "../hooks/useTransaction";
 
 export default function Cart(props: any) {
-  const dispatchToStore = useDispatch();
-
-  // this needs to be fetched from state
-  const auth = getAuth();
-  const currentUserId = useSelector((state: any) => state.user.userId);
-  // console.log(currentUserId)
-  const cartReducer = (state: any, action: any) => {
-    switch (action.type) {
-      case "loading":
-        // console.log("loading State", state)
-        return (state = { cart: <Loader /> });
-      case "empty":
-        // console.log("empty is Called", state)
-        return (state = { cart: <h1>your shopping Cart is Empty</h1> });
-      case "loaded":
-        // console.log("loaded is Called", state)
-        return (state = { cart: action.payload });
-      case "loading Transaction":
-        return (state = { cart: <TransactionLoader /> });
-      case "checkout":
-        return (state = { cart: [], displayCheckoutModal: true });
-      default:
-        break;
-    }
-  };
-  // 
-  const fetchCart = async () => {
-    dispatch({ type: "loading" });
-    const request = await fetch(
-      `https://e-commerce-cbe7c-default-rtdb.firebaseio.com/users/${currentUserId}/cart.json`,
-    );
-    const res = await request.json();
-    // console.log(res)
-
-    if (!res) {
-      dispatch({ type: "empty" });
-    } else {
-      dispatch({ type: "loading" });
-      getCart({ res });
-      dispatch({ type: "loaded", payload: res });
-    }
-
-    return res;
-  };
-
-  const initialState: any = {
-    cart: <h1 className="cart-text">your shopping cart is empty</h1>,
-  };
-  const [cartState, dispatch] = useReducer(cartReducer, initialState);
-
+  const { cartState, dispatch, fetchCart } = useCart()
+  const { handleTransaction } = useTransaction(cartState, dispatch)
+  console.log(cartState)
   useEffect(() => {
+    // we should only fetch the cart when an update happens 
     fetchCart();
   }, []);
-  // console.log(cart)
 
   return (
     <Fragment>
@@ -77,7 +26,7 @@ export default function Cart(props: any) {
         </div>
 
         {cartState?.cart instanceof Array
-          ? cartState?.cart.map((el, index) => (
+          ? cartState?.cart.map((el: any, index: any) => (
             <CartItem
               key={index}
               itemName={el.imageTitle}
@@ -87,26 +36,13 @@ export default function Cart(props: any) {
               category={el.category}
             />
           ))
-          : cartState?.cart}
+          : cartState.cart}
         <div className="cart-btns">
-          <button
+          {cartState?.cart instanceof Array && <button
             className="checkout-btn"
-            onClick={() => {
-              sendTransaction(cartState, auth, currentUserId);
-              dispatch({ type: "empty" });
-              dispatch({ type: "loading Transaction" });
-              setTimeout(() => {
-                dispatchToStore(checkout("checkout complete"));
-              }, 3000);
-
-              setTimeout(() => {
-                dispatchToStore(resetCart());
-              }, 5000);
-            }}
-          >
+            onClick={() => handleTransaction()}>
             checkout
-          </button>
-
+          </button>}
           <button
             className="close-btn"
             onClick={() => {

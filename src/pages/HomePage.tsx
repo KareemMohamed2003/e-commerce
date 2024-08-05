@@ -5,6 +5,7 @@ import Product from "../components/Product";
 import Card from "../components/Card";
 import Portal from "../components/Portal";
 import ProductModal from "../components/ProductModal";
+import { Outlet } from "react-router-dom";
 
 export default function HomePage() {
   const [selectedItems, setSelectedItems] = useState<any>(null);
@@ -36,7 +37,7 @@ export default function HomePage() {
   useEffect(() => {
     setSelectedItems(selectedProducts);
     // addUserEntry("checkIn",userState)
-    console.log("home page")
+    console.log("home page");
   }, [productsState]);
 
   return (
@@ -49,7 +50,7 @@ export default function HomePage() {
           />
         </Portal>
       )}
-
+      <Outlet />
       {selectedItems &&
         selectedItems.map((el: any, index: any) => (
           <div key={index} className="product-item">

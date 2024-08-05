@@ -17,7 +17,7 @@ export default function SelectedCategory() {
       return;
     }
   }, [selectedProducts]);
-
+  console.log("selectedCategory");
   return (
     <section className="selectedProducts">
       {selectedItems &&
