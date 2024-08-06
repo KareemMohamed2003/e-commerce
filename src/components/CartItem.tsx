@@ -50,9 +50,9 @@ export default function CartItem({
         </button>
         <button
           className="subtract-btn"
-          onClick={() => {
-            decrementItem(Item, currentUserId, dispatchToStore);
-          }}
+          onClick={() =>
+            decrementItem(Item, currentUserId, dispatchToStore)
+          }
         >
           -{" "}
         </button>

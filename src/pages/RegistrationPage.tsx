@@ -1,7 +1,4 @@
 import "../sass/loginForm.scss";
-import RegistrationPopup from "../components/RegistrationPopup";
-import LoginModal from "../components/LoginModal";
-import Portal from "../components/Portal";
 import { useEffect, useReducer, useRef, useState } from "react";
 import { changeUsername, addUsertoFireBase, app } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +8,9 @@ import { getError } from "../Redux/userDataSlice";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { dateFormatter } from "../Functions";
 import { getDatabase } from "firebase/database";
+import RegistrationPopup from "../components/RegistrationPopup";
+import LoginModal from "../components/LoginModal";
+import Portal from "../components/Portal";
 
 export default function RegistrationPage() {
   const { displayPopup } = useSelector((state: any) => state.popupToggle);

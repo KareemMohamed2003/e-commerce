@@ -82,9 +82,9 @@ export const makeCartTransaction = async (
   message: string,
   userId: string,
   cartItems: any,
-  cart?: any,
   location: string = "cart",
 ) => {
+  console.log(cartItems)
   // console.log(cart,cartItems)
   set(ref(eCommerceDB, `/users/${userId}/${location}`), cartItems).then(() => {
     dispatchToStore(pendingItem("pending"));
@@ -115,9 +115,9 @@ export const addItemToCart = async (
   userId: string,
   dispatchToStore: any,
 ) => {
-  // console.log(userId)
+  console.log(userId)
   // console.log(item)
-
+  console.log()
   const cartRef = ref(eCommerceDB, `/users/${userId}/cart`);
   onValue(
     cartRef,
@@ -147,7 +147,7 @@ export const addItemToCart = async (
             "item added to cart",
             userId,
             [...items],
-            items,
+
           );
         } else {
           makeCartTransaction(
@@ -155,7 +155,7 @@ export const addItemToCart = async (
             "item added to cart",
             userId,
             [item, ...items],
-            items,
+            // items,
           );
         }
       } else {
@@ -164,7 +164,7 @@ export const addItemToCart = async (
           "item added to cart",
           userId,
           [item],
-          item,
+          // item,
         );
       }
     },
@@ -186,7 +186,7 @@ export const checkCartSize = async (
       "item removed from cart",
       userId,
       items,
-      items,
+
     );
   } else {
     makeCartTransaction(
@@ -194,7 +194,7 @@ export const checkCartSize = async (
       "item removed from cart",
       userId,
       items,
-      items,
+
     );
   }
 };
@@ -208,19 +208,19 @@ export const deleteItem = async (
     `https://e-commerce-cbe7c-default-rtdb.firebaseio.com/users/${userId}/cart.json`,
   );
   const items: {}[] = await getItems.json();
-
+  console.log(items)
   if (items) {
     const ItemIndex = items.findIndex(
       (el: any) => el.imageTitle === Item.imageTitle,
     );
     items.splice(ItemIndex, 1);
-    // console.log(items)
+    console.log("deleteItem", items)
     makeCartTransaction(
       dispatchToStore,
       "item removed from cart",
       userId,
       items,
-      items,
+
     );
   }
 };
@@ -235,7 +235,8 @@ export const decrementItem = async (
     cartRef,
     (snapshot) => {
       const items = snapshot.val();
-      // console.log(items)
+
+      console.log("decrementItems", items)
 
       if (items) {
         const ItemIndex = items?.findIndex(
@@ -252,7 +253,7 @@ export const decrementItem = async (
             "item removed from cart",
             userId,
             items,
-            items,
+
           );
         } else {
           // console.log("item is zero")
@@ -265,4 +266,51 @@ export const decrementItem = async (
       onlyOnce: true,
     },
   );
+};
+
+
+
+export const addUserEntry = async (
+  check: any,
+  userData: any,
+  database: any,
+) => {
+  const exisitingActivites = await fetch(
+    "https://admin-dashboard-f3c0a-default-rtdb.firebaseio.com/activites.json",
+  );
+  const res = await exisitingActivites.json();
+  // console.log(res);
+  let userEntry = {};
+
+  if (check === "checkIn") {
+    userEntry = {
+      signedInAt: dateFormatter.format(new Date()),
+      username: userData?.username,
+      email: userData?.email,
+    };
+  } else {
+    userEntry = {
+      signedOutAt: dateFormatter.format(new Date()),
+      username: userData?.username,
+      email: userData?.email,
+    };
+  }
+
+  if (res) {
+    writeToDB("/activites", [...res, userEntry], database, false);
+  } else {
+    writeToDB("/activites", [userEntry], database, false);
+  }
+};
+
+const localStorageSpace = function () {
+  var allStrings = "";
+  for (var key in window.localStorage) {
+    if (window.localStorage.hasOwnProperty(key)) {
+      allStrings += window.localStorage[key];
+    }
+  }
+  return allStrings
+    ? 3 + (allStrings.length * 16) / (8 * 1024) + " KB"
+    : "Empty (0 KB)";
 };

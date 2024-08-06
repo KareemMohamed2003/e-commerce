@@ -6,7 +6,7 @@ import { Fragment, useReducer, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { displayProducts } from "../Redux/SelectedCategorySlice";
-import { addUserEntry } from "../pages/LoginPage";
+import { addUserEntry } from "../Functions";
 import { getAuth } from "firebase/auth";
 import { resetCart } from "../Redux/cartSlice";
 import { signOut } from "../Redux/userDataSlice";

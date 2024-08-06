@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getDatabase, ref, set, onValue, remove } from "firebase/database";
+import { getError } from "./Redux/userDataSlice";
 export const firebaseConfig = {
   apiKey: "AIzaSyBfDKxqoLMWIdM2CjV9-WAwnhux3XqGe9w",
   authDomain: "e-commerce-cbe7c.firebaseapp.com",
@@ -100,7 +101,7 @@ export const changeUsername = (
         updateProfile(auth.currentUser, {
           displayName: username,
         })
-          .then(() => {})
+          .then(() => { })
           .catch((error) => {
             // console.log(error)
           });
@@ -113,5 +114,26 @@ export const changeUsername = (
       const errorMessage = error.message;
       // console.log(errorCode)
       // console.log(errorMessage)
+    });
+};
+export const login = (email, password, auth, setLoading, dispatchToStore, setUserCredentials) => {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user);
+      setUserCredentials({
+        username: user.displayName,
+        id: user.uid,
+        email: user.email,
+      });
+      setLoading(false);
+      console.log(user)
+      return user.uid;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage)
+      dispatchToStore(getError({ errorCode: errorCode.split("/")[1] }));
     });
 };

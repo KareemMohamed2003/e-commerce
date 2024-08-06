@@ -8,21 +8,22 @@ import { userCredentials } from "../interfaces/userCredentials";
 // we can have a status indicatoing of fetching that user data has been successful or not and
 // the user credentials for that user
 //
-export default function UseLogin() {
+export default function useLogin() {
   const navigate = useNavigate();
   const dispatchToStore = useDispatch();
+  const [loading, setLoading] = useState<any>(false);
   const [userCredentials, setUserCredentials] =
     useState<userCredentials | null>(null);
-  const [loading, setLoading] = useState<any>(false);
 
-  const fetchUserData = async (userId: string | undefined) => {
+  const fetchUserData = async (id: string | undefined) => {
     const userDataQuery = await fetch(
-      `https://e-commerce-cbe7c-default-rtdb.firebaseio.com/users/${userId}.json`,
+      `https://e-commerce-cbe7c-default-rtdb.firebaseio.com/users/${id}.json`,
     );
     const queryRes = await userDataQuery.json();
     console.log(queryRes);
     dispatchToStore(getCart(queryRes.cart)); // this would only fetch the user Cart when the user  logs in
-    const userInfo = { ...queryRes, userId };
+    const { userId, creationDate, email, username } = queryRes
+    const userInfo = { userId, creationDate, email, username };
     console.log(userInfo);
     dispatchToStore(setUserSlice({ userInfo }));
     console.log(userCredentials);

@@ -1,58 +1,14 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useReducer, useRef, useEffect } from "react";
-import {
-  getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { store } from "../Redux/reduxStore";
+import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { getError, setUserSlice, signOut } from "../Redux/userDataSlice";
+import { getError } from "../Redux/userDataSlice";
 import "../sass/loginForm.scss";
 import Portal from "../components/Portal";
 import LoginModal from "../components/LoginModal";
 import WhirlyLoader from "../components/whirlyLoader";
-import { dateFormatter } from "../Functions";
-import { writeToDB, eCommerceAuth, eCommerceDB } from "../firebase";
-import UseInitializeApp from "../hooks/UseLogin";
-
-// console.log(localStorage.getItem("persist:root"))
-const storage = JSON.parse(localStorage.getItem("persist:root")!);
-// console.log(storage?.user);
-// const data = JSON.parse(storage)
-// console.log(storage)
-export const addUserEntry = async (
-  check: any,
-  userData: any,
-  database: any,
-) => {
-  const exisitingActivites = await fetch(
-    "https://admin-dashboard-f3c0a-default-rtdb.firebaseio.com/activites.json",
-  );
-  const res = await exisitingActivites.json();
-  // console.log(res);
-  let userEntry = {};
-
-  if (check === "checkIn") {
-    userEntry = {
-      signedInAt: dateFormatter.format(new Date()),
-      username: userData?.username,
-      email: userData?.email,
-    };
-  } else {
-    userEntry = {
-      signedOutAt: dateFormatter.format(new Date()),
-      username: userData?.username,
-      email: userData?.email,
-    };
-  }
-
-  if (res) {
-    writeToDB("/activites", [...res, userEntry], database, false);
-  } else {
-    writeToDB("/activites", [userEntry], database, false);
-  }
-};
+import { writeToDB, eCommerceAuth, eCommerceDB, login } from "../firebase";
+import useLogin from "../hooks/useLogin"
 
 export default function LoginPage() {
   const initialState = {
@@ -115,27 +71,29 @@ export default function LoginPage() {
       case "reset":
         return initialState;
       default:
+
         break;
     }
   };
+  // useForm hook 
+  const errorMessage = useSelector((state: any) => state.user.errorMessage);
   const [formErrors, dispatch]: any = useReducer<any>(
     errorReducer,
     initialState,
   );
   const [toggleModal, setModalToggle] = useState<any>(false);
   console.log("login page");
-  const errorMessage = useSelector((state: any) => state.user.errorMessage);
-  console.log("error message", errorMessage);
+  // console.log("error message", errorMessage);
   const dispatchToStore = useDispatch();
-  const auth = getAuth();
+  const currentUser = useSelector((state: any) => state.user);
   const {
     loading,
     setLoading,
     userCredentials,
     setUserCredentials,
-    fetchUserData,
-  } = UseInitializeApp();
-  const currentUser = useSelector((state: any) => state.user);
+
+  } = useLogin();
+
   // console.log(auth.currentUser);
   // this code is causing a lot of logs and trouble .
   // console.log("redux state with store.getState", store.getState());
@@ -150,18 +108,8 @@ export default function LoginPage() {
   //   });
   // }, []);
   // dispatchToStore(signOut())
-  var localStorageSpace = function () {
-    var allStrings = "";
-    for (var key in window.localStorage) {
-      if (window.localStorage.hasOwnProperty(key)) {
-        allStrings += window.localStorage[key];
-      }
-    }
-    return allStrings
-      ? 3 + (allStrings.length * 16) / (8 * 1024) + " KB"
-      : "Empty (0 KB)";
-  };
-  console.log("local storage space", localStorageSpace());
+
+
   useEffect(() => {
     // console.log(userCredentials)
 
@@ -172,27 +120,7 @@ export default function LoginPage() {
     if (errorMessage) setModalToggle(true);
   }, [errorMessage]);
 
-  const login = (email: any, password: any, auth: any, setLoading: any) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-        setUserCredentials({
-          username: user.displayName,
-          id: user.uid,
-          email: user.email,
-        });
-        setLoading(false);
 
-        return user.uid;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // console.log(errorCode, errorMessage)
-        dispatchToStore(getError({ errorCode: errorCode.split("/")[1] }));
-      });
-  };
 
   const emailRef = useRef<any>(null);
   const passwordRef = useRef<any>(null);
@@ -216,12 +144,13 @@ export default function LoginPage() {
       formErrors.emailError === false
     ) {
       setLoading(true);
-      // setLoading(false)
       login(
         formErrors.emailValue,
         formErrors.passwordValue,
         eCommerceAuth,
         setLoading,
+        dispatchToStore,
+        setUserCredentials
       );
       dispatch({ type: "reset" });
     }
@@ -274,11 +203,11 @@ export default function LoginPage() {
             </h2>
           </div>
         </Link>
-        {/* {loading && (
+        {loading && (
           <Portal>
             <WhirlyLoader />
           </Portal>
-        )} */}
+        )}
       </div>
     </section>
     // )

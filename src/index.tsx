@@ -12,11 +12,13 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./Redux/reduxStore";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import ErrorPage from "./pages/ErrorPage";
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 console.log("index page");
 const router = createBrowserRouter([
   {
+    errorElement: <ErrorPage />,
     element: (
       <Provider store={store}>
         <ProtectedRoute>
