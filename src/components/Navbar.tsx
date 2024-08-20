@@ -1,73 +1,14 @@
+import { Fragment } from "react";
+import { eCommerceDB } from "../lib/firebase";
+import { Link } from "react-router-dom";
+import SideBar from "./Sidebar";
 import NotificationPopup from "./NotificationPopup";
 import LogoutIcon from "./svg-components/LogoutIcon";
 import CartIcon from "./svg-components/CartIcon";
-import HomeIcon from "./svg-components/HomeIcon";
-import { Fragment, useReducer, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { displayProducts } from "../Redux/SelectedCategorySlice";
-import { addUserEntry } from "../Functions";
-import { getAuth } from "firebase/auth";
-import { resetCart } from "../Redux/cartSlice";
-import { signOut } from "../Redux/userDataSlice";
-import { eCommerceDB } from "../firebase";
-import Cart from "./Cart";
 import Portal from "./Portal";
+import useNavbar from "../hooks/useNavbar";
 import "../sass/navbar.scss";
-
 function Navbar() {
-  const auth = getAuth();
-  const navigate = useNavigate();
-  const cartCount = useSelector((state: any) => state.cartState.cart?.length);
-
-  const logOut = async (userData: any, eCommerceDB: any) => {
-    addUserEntry("checkOut", userData, eCommerceDB);
-    dispatchToStore(signOut());
-    dispatchToStore(resetCart());
-    await auth.signOut();
-    navigate("/LoginPage", { replace: true });
-  };
-
-  const initialState = {
-    toggle: false,
-    displayCart: false,
-    displayFavourites: false,
-    displayNotifications: false,
-    displayCartNotification: false,
-  };
-
-  const displayReducer = (state: any, action: any) => {
-    switch (action.type) {
-      case "displayCart":
-        return {
-          displayCart: true,
-          toggle: !state.toggle,
-        };
-
-      case "displayNotification":
-        return {
-          displayNotification: !state.displayNotification,
-          toggle: !state.toggle,
-        };
-      case "displayCartNotification":
-        return {
-          displayCartNotification: true,
-          toggle: true,
-        };
-      case "disableCartNotification":
-        return {
-          displayCartNotification: true,
-          toggle: false,
-        };
-      default:
-        break;
-    }
-  };
-
-  const [toggleMenu, setMenuToggle] = useState(false);
-  const dispatch = useDispatch();
-  const dispatchToStore = useDispatch();
-  const ProductsState = useSelector((state: any) => state);
   const electronics = [
     "cameras",
     "security&surveillance",
@@ -86,149 +27,75 @@ function Navbar() {
     "women's accessories",
     "women's clothing",
   ];
-  const [displayState, dispatchReducer]: any = useReducer<any>(
-    displayReducer,
-    initialState,
-  );
-  const cartState = useSelector((state: any) => state.cartState);
-  const userData = useSelector((state: any) => state.user);
-
-  useEffect(() => {
-    if (cartState.checkout) {
-      dispatchReducer({ type: "displayCartNotification" });
-    }
-    if (cartState.isItemChanged) {
-      dispatchReducer({ type: "displayCartNotification" });
-    } else if (!cartState.isItemPending) {
-      // this prevents the checkout notification from getting to the checkout expression
-      dispatchReducer({ type: "disableCartNotification" });
-    }
-  }, [cartState]);
-
+  const {
+    toggleMenu,
+    notificationDisplay,
+    dispatch,
+    setMenuToggle,
+    navigate,
+    logOut,
+    productsState,
+    cartCount,
+    userData,
+  } = useNavbar();
+  const username = userData.username;
   return (
     <Fragment>
-      {displayState.toggle && (
+      {notificationDisplay.toggle && (
         <Portal>
-          {displayState.displayCart && (
-            <Cart dispatchReducer={dispatchReducer} />
-          )}
-          {displayState.displayCartNotification && <NotificationPopup />}
+          {notificationDisplay.displayCartNotification && <NotificationPopup />}
         </Portal>
       )}
-      {/* */}
       <nav className="navbar">
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <div
-            className="bars"
-            onClick={() => {
-              setMenuToggle(!toggleMenu);
-            }}
-          >
+        <section className="nav-heading">
+          <div className="bars" onClick={() => setMenuToggle(!toggleMenu)}>
             {new Array(3).fill(0).map((_, index) => (
               <div
+                key={index}
                 className={
                   toggleMenu ? `transform bar${index + 1}` : `bar${index + 1}`
                 }
               ></div>
             ))}
-            {/* <div className={toggleMenu ? "transform bar1" : "bar1"}></div>
-            <div className={toggleMenu ? "transform bar2" : "bar2"}></div>
-            <div className={toggleMenu ? "transform bar3" : "bar3"}></div> */}
           </div>
-
-          <section className="home-icon-container">
-            <div
-              className="home-icon"
-              style={{ margin: "auto" }}
-              onClick={() => navigate("/home", { replace: true })}
-            >
-              <HomeIcon />
-            </div>
-          </section>
-        </div>
+          <div onClick={() => navigate("/home", { replace: true })}>
+            <h1 className="main-heading">
+              <span>Ease</span>
+              Shop
+            </h1>
+          </div>
+        </section>
 
         {toggleMenu && (
-          <div className="menu">
-            <h1 className="menu-heading">shop by department</h1>
-
-            <h2 className="category-heading">electronics</h2>
-            {electronics.map((el) => (
-              <Link
-                onClick={() => {
-                  console.log(el);
-                  dispatch(displayProducts({ state: ProductsState, type: el }));
-                }}
-                key={el}
-                to={`/home/SelectedCategory`}
-                className="link"
-              >
-                {/* <div
-                  onClick={() => 
-                    dispatch(
-                      displayProducts({ state: ProductsState, type: el }),
-                    )
-                  }
->
-                  {el}
-                </div>{" "} */}
-                {el}
-              </Link>
-            ))}
-
-            <h2 className="category-heading">women's Fashion</h2>
-            {womenCategories.map((el) => (
-              <Link className="link" key={el} to={`/home/SelectedCategory`}>
-                <div
-                  onClick={() => {
-                    dispatch(
-                      displayProducts({ state: ProductsState, type: el }),
-                    );
-                  }}
-                >
-                  {el}
-                </div>{" "}
-              </Link>
-            ))}
-            <h2 className="category-heading">men's Fashion</h2>
-
-            {menCategories.map((el) => (
-              <Link to={`/home/SelectedCategory`} key={el} className="link">
-                <div
-                  onClick={() => {
-                    dispatch(
-                      displayProducts({ state: ProductsState, type: el }),
-                    );
-                  }}
-                >
-                  {el}
-                </div>{" "}
-              </Link>
-            ))}
-          </div>
+          <SideBar
+            setMenuToggle={setMenuToggle}
+            menCategories={menCategories}
+            womenCategories={womenCategories}
+            dispatch={dispatch}
+            electronics={electronics}
+            productsState={productsState}
+          />
         )}
 
         <div className="nav-icons">
           <h1 className="username">
-            {userData.username ? `${userData.username}` : null}
+            {username && username.slice(0, 8).concat("...")}
           </h1>
-
-          <div
-            className="cart-icon-container"
-            onClick={() => {
-              dispatchReducer({ type: "displayCart" });
-            }}
-            style={{ position: "relative" }}
-          >
-            {cartCount > 0 ? (
-              <div className="cart-counter">
-                <span>{cartCount}</span>
+          <Link to="/home/cart">
+            <div
+              className="cart-icon-container"
+              style={{ position: "relative" }}
+            >
+              {cartCount > 0 ? (
+                <div className="cart-counter">
+                  <span>{cartCount > 99 ? `${99}+` : cartCount}</span>
+                </div>
+              ) : null}
+              <div className="cart-icon">
+                <CartIcon />
               </div>
-            ) : null}
-            <div className="cart-icon">
-              <CartIcon />
             </div>
-          </div>
-
+          </Link>
           <div
             className="logout-icon-container"
             onClick={() => {

@@ -1,14 +1,24 @@
 * {
   margin: 0rem;
   box-sizing: border-box;
+  color: white;
+  scrollbar-width: 1px;
+
+  ::-webkit-scrollbar {
+    width: 1em;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background-color: #7a797c;
+    background-clip: content-box;
+  }
+
 }
 
 .App {
   text-align: center;
-
-  /* background:radial-gradient(105.61% 105.61% at 23.75% -11.45%, #6D0E99 15.27%, #1B1616 100%);
-  background:radial-gradient(96.2% 98.07% at 82.76% 0%, #1991B7 0%, #175D59 36.85%, #1B161A 100%);
-  */
 }
 
 html {
@@ -21,10 +31,22 @@ body {
 }
 
 #root {
-  background: radial-gradient(
-    137.07% 137.03% at 23.75% -11.45%,
-    #0e7899 0.12%,
-    rgba(13, 15, 15, 0.91) 100%
-  );
+  background: #202124;
   min-height: 100vh;
+  height: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+.App {
+  height: 100%;
+}
+
+.appLoader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
 }

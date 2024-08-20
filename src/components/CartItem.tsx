@@ -1,21 +1,35 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart, decrementItem, deleteItem } from "../Functions";
+import { addItemToCart, decrementItem, deleteItem } from "../lib/cartActions";
 import RemoveItemIcon from "./svg-components/RemoveItemIcon";
+
+interface CartItemProps {
+  id: string;
+  itemName: string;
+  itemImg: string;
+  itemPrice: number;
+  quantity: number;
+  category: string;
+  dispatch: React.Dispatch<any>;
+}
 export default function CartItem({
   itemName,
   itemPrice,
   itemImg,
   quantity,
   category,
-}: any) {
+  dispatch,
+  id,
+}: CartItemProps) {
+
   const dispatchToStore = useDispatch();
   const currentUserId = useSelector((state: any) => state.user.userId);
-  const Item = {
+  const item = {
     imageTitle: itemName,
     price: itemPrice,
-    imageSrc: itemImg,
+    imageUrl: itemImg,
     quantity,
     category,
+    id,
   };
 
   return (
@@ -36,31 +50,32 @@ export default function CartItem({
         <p>{quantity}</p>
       </div>
       <div className="cart-item-price">
-        <p>price</p>
         <p>{itemPrice}$</p>
       </div>
       <div className="buttons">
         <button
           className="add-btn"
           onClick={() => {
-            addItemToCart(Item, currentUserId, dispatchToStore);
-          }}
+
+            addItemToCart({ ...item, quantity: 1 }, currentUserId, dispatchToStore, dispatch)
+          }
+          }
         >
           +{" "}
         </button>
         <button
           className="subtract-btn"
-          onClick={() =>
-            decrementItem(Item, currentUserId, dispatchToStore)
+          onClick={() => decrementItem(item, currentUserId, dispatchToStore, dispatch)
+
           }
         >
           -{" "}
         </button>
         <button
           className="delete-btn"
-          onClick={() => {
-            deleteItem(Item, currentUserId, dispatchToStore);
-          }}
+          onClick={() =>
+            deleteItem(item.id, currentUserId, dispatchToStore, dispatch)
+          }
         >
           <div className="remove-item-icon">
             <RemoveItemIcon />

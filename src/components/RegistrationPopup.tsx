@@ -15,6 +15,7 @@ export default function Popup(props: any) {
       </div>
 
       <button
+        className="continue-btn"
         onClick={() => {
           navigate("/LoginPage");
           dispatchToStore(togglePopup(false));

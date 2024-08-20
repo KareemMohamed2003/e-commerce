@@ -2,30 +2,30 @@
 @use "./mixins.scss";
 
 .cart {
-  @include mixins.container-style(33rem, 65rem, unset, variables.$radial-aqua);
+  @include mixins.container-style(100%, 100%, unset, inherit);
   overflow-x: hidden;
   overflow-y: auto;
-  position: fixed;
   z-index: 10;
-  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
   backdrop-filter: blur(27px);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   animation: popupAnimation 0.4s ease-in-out;
   color: white;
 }
 
 .cart-item {
-  height: 5rem;
   width: 100%;
   display: flex;
   align-items: center;
   font-size: 2rem;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.356);
   justify-content: space-between;
+  background: #35363b;
+  border-radius: 10px;
+  gap: 1rem;
+  height: 5rem;
+  margin: 1rem;
 }
 
 .cart-container {
@@ -33,20 +33,26 @@
   justify-content: space-around;
   align-items: center;
   margin-top: 1rem;
+  align-self: flex-start;
+  width: 100%;
 }
 
 .shopping-cart-icon {
   margin-right: 1rem;
-  height: 4rem;
-  width: 4rem;
+  height: 3rem;
+  width: 3rem;
 }
 
 .cart-heading {
   font-size: 2rem;
+  align-self: flex-start;
+  margin-top: 1rem;
 }
 
 .buttons {
   display: flex;
+  gap: 0.5rem;
+  padding-right: 1rem;
 }
 
 .cart-text {
@@ -54,8 +60,8 @@
 }
 
 .cart-item-description {
+  text-align: start;
   font-size: 1rem;
-  margin: 1rem;
   flex-grow: 1;
 }
 
@@ -64,7 +70,6 @@
   flex-direction: column;
   align-items: center;
   margin-right: 0.4rem;
-  margin: 1rem;
 }
 
 .remove-item-icon {
@@ -78,48 +83,39 @@
   border: 2px solid black;
   height: 100%;
   width: 10%;
-
+  border-radius: 10px;
   img {
     height: 100%;
     width: 100%;
     object-fit: contain;
+    border-radius: inherit;
   }
 }
 
 .add-btn {
-  @include mixins.btn-styling(3rem, 5rem, variables.$dark-green);
-  margin: 0.2rem;
-  max-width: 3rem;
+  @include mixins.btn-styling(2.5rem, 2.5rem, variables.$dark-green);
+  cursor: pointer;
   flex-shrink: 0;
 }
 
 .subtract-btn {
-  @include mixins.btn-styling(3rem, 5rem, variables.$linear-red);
-  margin: 0.2rem;
-  max-width: 3rem;
+  @include mixins.btn-styling(2.5rem, 2.5rem, variables.$linear-red);
+  cursor: pointer;
   flex-shrink: 0;
 }
 
-.close-btn {
-  @include mixins.btn-styling(3.5rem, 9rem, variables.$linear-red, 20px);
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  flex-shrink: 0;
-  box-shadow: variables.$red-shadow;
+.cart-total {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  align-self: center;
+  margin: 1.5rem;
 }
-
-.checkout-btn {
-  @include mixins.btn-styling(3.5rem, 9rem, variables.$orange, 20px);
-  box-shadow: variables.$orange-shadow;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  flex-shrink: 0;
-}
-
 .delete-btn {
+  cursor: pointer;
   @include mixins.btn-styling(
-    3rem,
-    5rem,
+    2.5rem,
+    2.5rem,
     linear-gradient(
       208.07deg,
       #c0ff0e -115.54%,
@@ -127,28 +123,48 @@
       #ff2e00 200.84%
     )
   );
-  max-width: 3rem;
-  margin: 0.2rem;
-  flex-shrink: 1;
+  flex-shrink: 0;
+  svg {
+    margin: auto;
+  }
+}
+.close-btn {
+  cursor: pointer;
+  @include mixins.btn-styling(3.5rem, 7rem, #961717, 22px);
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.checkout-btn {
+  cursor: pointer;
+  @include mixins.btn-styling(3.5rem, 7rem, variables.$orange, 22px);
+  margin-top: 1rem;
+  flex-shrink: 0;
+  font-size: 1.3rem;
 }
 
 .cart-item-quantity {
   display: flex;
   align-items: center;
-  margin: 1rem;
 }
 
 .cart-btns {
   display: flex;
-  justify-content: space-evenly;
-  width: 50%;
+  justify-content: flex-start;
+  gap: 1.4rem;
 }
-
+.cart-header {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
 @media screen and (max-width: 1100px) {
   .img-container {
     border: none;
     background: white;
-
     height: 6rem;
     width: 100%;
     flex-shrink: 1;
@@ -162,13 +178,6 @@
   }
 
   .cart {
-    @include mixins.container-style(
-      33rem,
-      100vw,
-      unset,
-      variables.$radial-aqua
-    );
-
     h1 {
       font-size: 1.5rem;
     }
@@ -180,31 +189,10 @@
 
   .cart-item-price {
     font-size: 1.5rem;
-    margin: 0.5rem;
   }
 
   .cart-item-quantity {
     font-size: 1.5rem;
-    margin: 0.5em;
-  }
-
-  .close-btn {
-    @include mixins.btn-styling(3.5rem, 7rem, variables.$linear-red, 20px);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    flex-shrink: 0;
-    box-shadow: variables.$red-shadow;
-    font-size: 1.3rem;
-  }
-
-  .checkout-btn {
-    @include mixins.btn-styling(3.5rem, 7rem, variables.$orange, 20px);
-    box-shadow: variables.$orange-shadow;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    flex-shrink: 0;
-
-    font-size: 1.3rem;
   }
 
   .delete-btn {
@@ -234,13 +222,26 @@
     margin-top: 1rem;
     height: 20rem;
   }
+  .buttons {
+    margin-bottom: 0.7rem;
+    padding-right: 0rem;
+  }
 }
 
 @media screen and (max-width: 850px) {
-  .buttons {
-    margin-bottom: 0.7rem;
+  .cart-header {
+    flex-direction: column;
+  }
+  .cart-heading {
+    align-self: center;
+  }
+  .cart-item {
+    justify-content: space-evenly;
   }
 
+  .cart-item-description {
+    margin: 0.5rem;
+  }
   .shopping-cart-icon {
     height: 3rem;
     width: 3rem;
@@ -259,12 +260,7 @@
   }
 
   .cart {
-    @include mixins.container-style(
-      33rem,
-      100vw,
-      unset,
-      variables.$radial-aqua
-    );
+    @include mixins.container-style(auto, auto, unset, inherit);
 
     h1 {
       font-size: 1.2rem;
@@ -277,24 +273,21 @@
 
   .cart-item-price {
     font-size: 1.3rem;
-    margin: 0.5rem;
   }
 
   .cart-item-quantity {
     font-size: 1.5rem;
-    margin: 0.34em;
   }
 
   .close-btn {
-    @include mixins.btn-styling(2.5rem, 5rem, variables.$linear-red, 20px);
+    @include mixins.btn-styling(2.5rem, 5rem, #961717, 20px);
 
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .checkout-btn {
     @include mixins.btn-styling(2.5rem, 5rem, variables.$orange, 20px);
-
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .delete-btn {
@@ -316,6 +309,11 @@
 
   .subtract-btn {
     @include mixins.btn-styling(2.3rem, 2.3rem, variables.$linear-red);
+  }
+  .cart-btns {
+    gap: 2rem;
+    width: 100%;
+    justify-content: center;
   }
 }
 

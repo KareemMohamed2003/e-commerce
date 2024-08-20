@@ -7,3 +7,8 @@ declare module "*.png" {
 declare module "*.jpeg" {
   export default "" as string;
 }
+
+declare module "*.module.scss" {
+  const classes: { [key: string]: string };
+  export default classes;
+}

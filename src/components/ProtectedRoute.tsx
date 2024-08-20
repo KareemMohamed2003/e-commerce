@@ -6,7 +6,9 @@ export default function ProtectedRoute({ children }: any) {
   const path = location.pathname;
   const allowedPaths = ["/LoginPage", "/RegistrationPage"];
   // we need to also check if the location is not a loginPage
-  // if user is logged out and the  intented page to naviagte to is login or /RegistrationPage
-  if (!currentUser.userId && allowedPaths.includes(path)) return children;
+  // if user is logged out and the  intented page to navigate to is login or /RegistrationPage
+  if (!currentUser.userId && allowedPaths.includes(path)) {
+    return children;
+  }
   return currentUser.userId ? children : <Navigate to="/LoginPage" replace />;
 }

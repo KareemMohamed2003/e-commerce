@@ -1,21 +1,25 @@
-import "./index.css";
-import App from "./App";
-import HomePage from "./pages/HomePage";
-import SelectedCategory from "./pages/SelectedCategory";
-import LoginPage from "./pages/LoginPage";
-import RegistrationPage from "./pages/RegistrationPage";
-import ProtectedRoute from "./components/ProtectedRoute";
-import RouteError from "./components/RouteError";
-import { loader as appLoader } from "./appLoader";
-import { loader as loginLoader } from "./loginLoader";
+import { loader as appLoader } from "./lib/loaders/appLoader";
+import { loader as loginLoader } from "./lib/loaders/loginLoader";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./Redux/reduxStore";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import SelectedCategory from "./pages/SelectedCategory";
+import LoginPage from "./pages/LoginPage";
+import RegistrationPage from "./pages/RegistrationPage";
+import SelectedProduct from "./pages/SelectedProduct";
+import ProtectedRoute from "./components/ProtectedRoute";
+import RouteError from "./components/RouteError";
 import ErrorPage from "./pages/ErrorPage";
+import Cart from "./pages/CartPage";
+import App from "./App";
+import "./index.css";
+import "./App.css"
+import { StrictMode } from "react";
+import Loader from "./components/Loader";
 const container = document.getElementById("root")!;
 const root = createRoot(container);
-console.log("index page");
 const router = createBrowserRouter([
   {
     errorElement: <ErrorPage />,
@@ -32,28 +36,42 @@ const router = createBrowserRouter([
         path: "/LoginPage",
         errorElement: <RouteError />,
         loader: loginLoader,
-        element: <LoginPage />,
+        element: <LoginPage />
       },
 
       {
         path: "/RegistrationPage",
-        errorElement: <div>oops something went wrong</div>,
         element: <RegistrationPage />,
       },
+
       {
         path: "/",
         loader: appLoader,
-
         errorElement: <RouteError />,
+
       },
+
       {
         path: "/home",
-        // loader: appLoader,
+
         element: <App />,
         children: [
           {
             index: true,
             element: <HomePage />,
+          },
+          {
+            path: "products/",
+            element: <SelectedProduct />,
+          },
+          {
+            path: "cart",
+            element: <Cart />,
+          },
+          {
+            index: true,
+            path: "SelectedCategory/:category",
+            element: <SelectedCategory />,
           },
           {
             index: true,
@@ -66,11 +84,16 @@ const router = createBrowserRouter([
   },
 ]);
 root.render(
-  <RouterProvider
-    router={router}
-  // fallbackElement={<div><h1>loading...
-  // </h1></div>}
-  />,
+  <StrictMode>
+    <RouterProvider
+      router={router}
+      fallbackElement={
+        <section className="appLoader">
+          <Loader />
+        </section>
+      }
+    />
+  </StrictMode>,
 );
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

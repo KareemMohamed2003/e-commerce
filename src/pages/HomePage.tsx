@@ -1,71 +1,44 @@
-import { useEffect, useState } from "react";
-import "../sass/homepage.scss";
+import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Product from "../components/Product";
-import Card from "../components/Card";
-import Portal from "../components/Portal";
-import ProductModal from "../components/ProductModal";
+import { selectRandomProducts } from "../lib/helpers";
 import { Outlet } from "react-router-dom";
-
+import Product, { ProductProps } from "../components/Product";
+import { eCommerceDB, readFromDB } from "../lib/firebase";
+import "../sass/homepage.scss";
 export default function HomePage() {
+
   const [selectedItems, setSelectedItems] = useState<any>(null);
-  const [productInfo, setProductInfoToggle] = useState<any>(false);
   const productsState = useSelector((state: any) => state.products.products);
-
-  const selectedProducts: any = [];
-  const categories = [
-    "electronics",
-    "womenFashion",
-    "computerPerpherials",
-    "books",
-    "videoGames",
-    "dataStorage",
-  ];
-
-  if (productsState.length) {
-    for (let i = 0; i < 6; i++) {
-      const currentCategory = categories[i];
-
-      const product = productsState.find(
-        (el: any) => el.category === currentCategory,
-      );
-
-      selectedProducts.push(product);
-    }
-  }
-
+  readFromDB("/products", eCommerceDB)
   useEffect(() => {
-    setSelectedItems(selectedProducts);
-    // addUserEntry("checkIn",userState)
-    console.log("home page");
+    if (productsState instanceof Object) {
+      const randomProducts = selectRandomProducts(productsState)
+      setSelectedItems(randomProducts)
+      console.log(randomProducts)
+    }
+
   }, [productsState]);
 
   return (
-    <section className="homepage">
-      {productInfo.toggle && (
-        <Portal>
-          <ProductModal
-            info={productInfo.productInfo}
-            setProductInfoToggle={setProductInfoToggle}
-          />
-        </Portal>
-      )}
-      <Outlet />
-      {selectedItems &&
-        selectedItems.map((el: any, index: any) => (
-          <div key={index} className="product-item">
-            <h1 className="product-category">{el.category}</h1>
-            <Card>
+    <Fragment>
+      <h1 className="home-heading">Featured products</h1>
+      <section className="homepage">
+        <Outlet />
+        {selectedItems &&
+          selectedItems.map((el: ProductProps, index: number) => (
+            <div key={index} className="product-item">
               <Product
-                imageSrc={el.imageUrl}
+                imageUrl={el.imageUrl}
                 imageTitle={el.imageTitle}
-                category={el.category}
-                setProductInfoToggle={setProductInfoToggle}
-                price={Math.floor(Math.random() * 100) + 10}
+                category={el?.subCategory ? el.subCategory : el.category}
+                price={el.price}
+                index={index}
+                id={el.id}
               />
-            </Card>
-          </div>
-        ))}
-    </section>
+            </div>
+          ))}
+
+      </section>
+    </Fragment>
   );
 }

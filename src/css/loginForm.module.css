@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,200&display=swap");
+.sigupBtn {
+  background: radial-gradient(105.61% 105.61% at 23.75% -11.45%, #6d0e99 15.27%, #1b1616 100%);
+  background: #202124;
+}
+
+.loginForm {
+  height: 30rem;
+  width: 30rem;
+  margin: auto;
+  background: rgb(52, 52, 52);
+  display: flex;
+  justify-content: center;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.loginForm h1 {
+  font-size: 2.5rem;
+  font-family: "Raleway", sans-serif;
+  color: white;
+}
+.loginForm form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+.loginForm input {
+  border-radius: 10px;
+  border: 2px rgb(255, 255, 255) solid;
+  width: 25rem;
+  margin-bottom: 0.4rem;
+  outline: none;
+  font-size: 2.4rem;
+  background: inherit;
+}
+.loginForm input:focus {
+  border: 2px solid rgba(231, 231, 231, 0.59);
+  border-radius: 10px;
+}
+.loginForm input:focus::placeholder {
+  opacity: 0;
+}
+.loginForm input {
+  margin-bottom: 1.8rem;
+  width: 65%;
+  font-size: 1.5rem;
+  padding: 6px;
+  color: white;
+}
+
+::placeholder {
+  color: rgb(135, 134, 134);
+  opacity: 1;
+  /* Firefox */
+}
+
+@keyframes popupAnimation {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.signupBtn {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(206.58deg, #38d551 16.68%, rgba(8, 18, 4, 0) 200.79%);
+  color: white;
+  width: 30%;
+  padding: 10px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.signuBtn:active {
+  transform: scale(0.8);
+}
+
+.formPage {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signInBtn {
+  color: white;
+  width: 30%;
+  padding: 10px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 20px;
+  font-weight: 700;
+  transition: all 0.2s;
+  background: linear-gradient(260.38deg, #5a0dd7 -54.19%, #c216ff 149.31%);
+  box-shadow: 0px 4px 19px -2px #a635ff;
+}
+
+.link {
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: azure;
+  background: linear-gradient(219.74deg, #07a6ff 11.94%, rgba(7, 166, 255, 0) 177.3%);
+}
+.link h2 {
+  color: white;
+  display: inline;
+}
+.link h2 span {
+  width: 100%;
+  display: block;
+  border-bottom: 3px solid white;
+  position: relative;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.registerationIcon {
+  height: 8rem;
+  width: 8rem;
+}
+
+@media screen and (max-width: 600px) {
+  .errorMessage {
+    color: red;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+  .signupBtn {
+    width: 45%;
+    padding: 0.8rem;
+    font-size: 1.3rem;
+  }
+  .loginForm {
+    margin: 0rem;
+    border-radius: 0px;
+    justify-content: center;
+    gap: 2rem;
+    height: 100vh;
+    width: 100vw;
+    font-size: 0.9rem;
+  }
+  .loginForm input {
+    font-size: 1.6rem;
+  }
+  .loginForm h1 {
+    font-size: 2rem;
+  }
+  .signInBtn {
+    padding: 0.8rem;
+    font-size: 1.3rem;
+  }
+  .link {
+    padding: 0.3rem;
+    border-radius: 10px;
+    color: azure;
+  }
+  .link h2 {
+    font-size: 1.3rem;
+  }
+  .link h2 span {
+    width: 100%;
+    display: block;
+    border-bottom: 3px solid white;
+    position: relative;
+  }
+}
+
+/*# sourceMappingURL=loginForm.module.css.map */

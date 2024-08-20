@@ -1,11 +1,8 @@
-import "../sass/LoginModal.scss";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import { getError } from "../Redux/userDataSlice";
-
-import LoginIcon from "./svg-components/LoginIcon";
 import { useEffect } from "react";
+import LoginIcon from "./svg-components/LoginIcon";
+import "../sass/LoginModal.scss";
 
 export default function LoginModal({ setModalToggle, setLoading }: any) {
   const errorMessage = useSelector((state: any) => state.user.errorMessage);
@@ -30,7 +27,6 @@ export default function LoginModal({ setModalToggle, setLoading }: any) {
           {errorMessage}
         </p>
       </div>
-      {/*  when the user closes the modal the state should be set back to initial  */}
       <button
         onClick={() => {
           setModalToggle(false);

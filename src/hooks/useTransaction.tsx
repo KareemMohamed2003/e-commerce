@@ -1,29 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
-import { sendTransaction } from "../Functions";
+import { sendTransaction } from "../lib/cartActions";
 import { getAuth } from "firebase/auth";
 import { checkout, resetCart } from "../Redux/cartSlice";
 
-const auth = getAuth()
+const auth = getAuth();
+export default function useTransaction(cart: any, dispatch: any) {
+  const currentUserId = useSelector((state: any) => state.user.userId);
+  const dispatchToStore = useDispatch();
 
-export default function useTransaction(cartState: any, dispatch: any) {
-   const currentUserId = useSelector((state: any) => state.user.userId);
-   const dispatchToStore = useDispatch();
-   const handleTransaction = async () => {
-      const transaction = await sendTransaction(cartState, auth, currentUserId);
+  const handleTransaction = async () => {
+    dispatch({ type: "loading Transaction" });
+    await sendTransaction(cart, auth, currentUserId).then(
+      () => {
+        dispatch({ type: "empty" });
+        dispatchToStore(checkout("checkout complete"));
+        setTimeout(() => dispatchToStore(resetCart()), 3000);
+      },
+      (rejection) => {
 
-      console.log(transaction)
-      dispatch({ type: "empty" });
-      dispatch({ type: "loading Transaction" });
-
-      setTimeout(() => {
-         dispatchToStore(checkout("checkout complete"));
-      }, 3000);
-
-      setTimeout(() => {
-         dispatchToStore(resetCart());
-      }, 5000);
-   }
-
-
-   return { handleTransaction }
+      },
+    );
+  };
+  return { handleTransaction };
 }

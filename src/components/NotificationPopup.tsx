@@ -9,7 +9,7 @@ export default function NotificationPopup() {
   const transactionMessage = useSelector(
     (state: any) => state.cartState.message,
   );
-
+  console.log("transaction mesaage", transactionMessage)
   useEffect(() => {
     switch (transactionMessage) {
       case "item added to cart":
@@ -46,8 +46,6 @@ export default function NotificationPopup() {
   }, [transactionMessage]);
 
   const [Icon, setIcon] = useState<any>({ icon: null, style: "" });
-
-  // { icon: null, style: "" }
 
   return (
     <div className={Icon.styling}>

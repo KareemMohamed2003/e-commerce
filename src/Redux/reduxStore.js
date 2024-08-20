@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { productsSlice } from "./productsSlice";
 import { featuredProductsSlice } from "./featuredProductsSlice";
-import { firebaseData } from "./FetchApiSlice";
 import { SelectedCategorySlice } from "./SelectedCategorySlice";
 import { popupSlice } from "./popupSlice";
 import userDataSlice from "./userDataSlice";
-import { userData } from "./fetchUserData";
 import cartSlice from "./cartSlice";
 import storage from "reduxjs-toolkit-persist/lib/storage";
 import {
@@ -18,16 +16,18 @@ import {
   REGISTER,
   persistCombineReducers,
 } from "reduxjs-toolkit-persist";
-import autoMergeLevel1 from "reduxjs-toolkit-persist/lib/stateReconciler/autoMergeLevel1";
 import autoMergeLevel2 from "reduxjs-toolkit-persist/lib/stateReconciler/autoMergeLevel2";
+import autoMergeLevel1 from "reduxjs-toolkit-persist/lib/stateReconciler/autoMergeLevel1";
+import { userData } from "./fetchUserData";
+import { firebaseData } from "./FetchApiSlice";
 
 const persistConfig = {
   key: "root",
   storage,
   stateReconciler: autoMergeLevel2,
   blacklist: [
-    "[firebaseData.reducerPath]",
-    "[userData.reducerPath]",
+    // "[firebaseData.reducerPath]",
+    // "[userData.reducerPath]",
     "products",
     "featuredProducts",
     "EcommerceProducts",
@@ -37,8 +37,8 @@ const persistConfig = {
 const persistedReducers = persistCombineReducers(persistConfig, {
   user: userDataSlice,
   cartState: cartSlice,
-  [firebaseData.reducerPath]: firebaseData.reducer,
-  [userData.reducerPath]: userData.reducer,
+  // [firebaseData.reducerPath]: firebaseData.reducer,
+  // [userData.reducerPath]: userData.reducer,
   products: productsSlice.reducer,
   featuredProducts: featuredProductsSlice.reducer,
   selectedProducts: SelectedCategorySlice.reducer,
@@ -52,6 +52,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(firebaseData.middleware),
+    }),
+  // .concat(firebaseData.middleware),
 });
 export const reduxPersistor = persistStore(store);

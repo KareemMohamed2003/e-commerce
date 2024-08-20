@@ -6,17 +6,15 @@
   border: unset;
   background: rgba(14, 12, 12, 0.46);
   border-radius: 10px;
-  transition: 2s all;
   animation: slideDown 2s ease;
   position: absolute;
   margin: 2rem;
-  backdrop-filter: blur(27px);
   z-index: 100;
   display: flex;
   align-items: center;
   flex-direction: column;
-  transform: translateY(2rem);
   justify-content: space-evenly;
+  transform: translateY(2rem);
   backdrop-filter: blur(35px);
 }
 .notificationPopup h1 {
@@ -28,18 +26,7 @@
   position: absolute;
   top: 7.5rem;
   bottom: 0;
-  background: linear-gradient(
-    247.28deg,
-    #2df00d 1.03%,
-    rgba(105, 254, 21, 0.61) 101.32%,
-    #69fe15 101.33%
-  );
-  background: linear-gradient(
-    247.28deg,
-    #2df00d 1.03%,
-    rgb(95, 255, 2) 101.32%,
-    #69fe15 101.33%
-  );
+  background: linear-gradient(247.28deg, #2df00d 1.03%, rgb(95, 255, 2) 101.32%, #69fe15 101.33%);
   filter: blur(58.5px);
   height: 11.5%;
   width: 84%;
@@ -102,7 +89,6 @@
   .notificationPopup h1 {
     font-size: 1.8rem;
   }
-
   .notification-icon-container {
     display: flex;
     align-items: center;
@@ -110,21 +96,18 @@
     width: 6rem;
     border-radius: 10px;
   }
-
   .add-notification::before {
     top: 6.5rem;
     height: 9%;
     width: 84%;
     color: white;
   }
-
   .delete-notification:before {
     top: 6.5rem;
     height: 9%;
     width: 84%;
     color: white;
   }
-
   .checkout-notification::before {
     top: 6.5rem;
     height: 9%;

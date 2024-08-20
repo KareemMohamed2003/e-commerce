@@ -1,8 +1,10 @@
 .selectedProducts {
   margin-top: 2rem;
   display: grid;
-  gap: 2rem;
-  grid-template-columns: auto auto auto;
+  gap: 1rem;
+  grid-template-columns: repeat(3, auto);
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 @media screen and (max-width: 900px) {

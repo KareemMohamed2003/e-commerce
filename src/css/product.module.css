@@ -1,0 +1,85 @@
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  background: rgb(52, 52, 52);
+  animation: popupAnimation 0.4s;
+}
+.product p {
+  color: rgb(255, 255, 255);
+}
+
+.productImage {
+  flex-shrink: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 14px;
+}
+
+.imageContainer {
+  border-radius: 14px;
+  flex-shrink: 0;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  background: white;
+}
+
+h1 {
+  color: white;
+}
+
+.addProduct {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addProductBtn {
+  background: #208336;
+  border-radius: 10px;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.productInfo {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 11px;
+  margin-bottom: 10px;
+  gap: 0.4rem;
+}
+
+@keyframes popupAnimation {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/*# sourceMappingURL=product.module.css.map */
