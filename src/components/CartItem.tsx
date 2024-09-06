@@ -1,16 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart, decrementItem, deleteItem } from "../lib/cartActions";
-import RemoveItemIcon from "./svg-components/RemoveItemIcon";
-
-interface CartItemProps {
-  id: string;
-  itemName: string;
-  itemImg: string;
-  itemPrice: number;
-  quantity: number;
-  category: string;
-  dispatch: React.Dispatch<any>;
-}
+import { useDispatch } from 'react-redux';
+import { addItemToCart, decrementItem, deleteItem } from '../lib/cartActions';
+import RemoveItemIcon from './svg-components/RemoveItemIcon';
+import { useAppSelector } from '../Redux/hooks';
+import { CartItemProps } from '../types';
 export default function CartItem({
   itemName,
   itemPrice,
@@ -20,9 +12,8 @@ export default function CartItem({
   dispatch,
   id,
 }: CartItemProps) {
-
   const dispatchToStore = useDispatch();
-  const currentUserId = useSelector((state: any) => state.user.userId);
+  const currentUserId = useAppSelector((state) => state.user.userId) as string;
   const item = {
     imageTitle: itemName,
     price: itemPrice,
@@ -40,7 +31,7 @@ export default function CartItem({
       <div className="cart-item-description">
         <p>
           {itemName.length > 55
-            ? itemName.slice(0, 65).concat("...")
+            ? itemName.slice(0, 65).concat('...')
             : itemName}
         </p>
       </div>
@@ -56,20 +47,23 @@ export default function CartItem({
         <button
           className="add-btn"
           onClick={() => {
-
-            addItemToCart({ ...item, quantity: 1 }, currentUserId, dispatchToStore, dispatch)
-          }
-          }
+            addItemToCart(
+              { ...item, quantity: 1 },
+              currentUserId,
+              dispatchToStore,
+              dispatch
+            );
+          }}
         >
-          +{" "}
+          +{' '}
         </button>
         <button
           className="subtract-btn"
-          onClick={() => decrementItem(item, currentUserId, dispatchToStore, dispatch)
-
+          onClick={() =>
+            decrementItem(item, currentUserId, dispatchToStore, dispatch)
           }
         >
-          -{" "}
+          -{' '}
         </button>
         <button
           className="delete-btn"

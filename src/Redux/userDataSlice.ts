@@ -1,61 +1,61 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import { userDataProps } from '../types';
 
-const initialState: any = {
+const initialState: userDataProps = {
   userId: null,
   errorMessage: false,
+  username: null,
 };
 
-export const userDataSlice: any = createSlice({
-  name: "userDataSlice",
+export const userDataSlice = createSlice({
+  name: 'userDataSlice',
   reducers: {
     setUserSlice: (state, action) => {
       return { ...action.payload.userInfo };
     },
 
-    signOut: (state, action) => {
+    signOut: () => {
       return { ...initialState };
     },
-    addItem: (state, action) => {},
     getError: (state, action) => {
       switch (action.payload.errorCode) {
-        case "internal-error":
+        case 'internal-error':
           return {
-            userId: null,
-            errorMessage: "oops something went Wrong",
+            ...initialState,
+            errorMessage: 'oops something went Wrong',
           };
 
-        case "user-not-found":
+        case 'user-not-found':
           return {
-            userId: null,
-
-            errorMessage: "user not found",
+            ...initialState,
+            errorMessage: 'user not found',
           };
-        case "invalid-email":
+        case 'invalid-email':
           return {
-            userId: null,
-            errorMessage: "invalid email address",
+            ...initialState,
+            errorMessage: 'invalid email address',
           };
-        case "wrong-password":
+        case 'wrong-password':
           return {
-            userId: null,
-            errorMessage: "wrong password",
+            ...initialState,
+            errorMessage: 'wrong password',
           };
-        case "network-request-failed":
+        case 'network-request-failed':
           return {
-            userId: null,
+            ...initialState,
             errorMessage:
-              "opps something went wrong ,please check your internet connection",
+              'opps something went wrong ,please check your internet connection',
           };
-        case "email-already-in-use":
+        case 'email-already-in-use':
           return {
-            userId: null,
-            errorMessage: "email address already in use",
+            ...initialState,
+            errorMessage: 'email address already in use',
           };
-        case "clear-error":
+        case 'clear-error':
           return initialState;
         default:
           return {
-            userId: null,
+            ...initialState,
             errorMessage: "couldn't find this email address",
           };
       }
@@ -66,5 +66,5 @@ export const userDataSlice: any = createSlice({
 });
 
 export default userDataSlice.reducer;
-export const { signOut, setUserSlice, addItem, getError, addItemToFavourites } =
+export const { signOut, setUserSlice, getError } =
   userDataSlice.actions;

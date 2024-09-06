@@ -1,4 +1,4 @@
-import "../sass/whirlyLoader.scss";
+import '../../sass/whirlyLoader.scss';
 
 export default function WhirlyLoader() {
   return (

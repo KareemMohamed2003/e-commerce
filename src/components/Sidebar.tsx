@@ -1,15 +1,8 @@
-import { Link } from "react-router-dom";
-import { displayProducts } from "../Redux/SelectedCategorySlice";
-import "../sass/navbar.scss";
+import { Link } from 'react-router-dom';
+import { displayProducts } from '../Redux/SelectedCategorySlice';
+import '../sass/navbar.scss';
+import { ISideBar } from '../types';
 
-interface ISideBar {
-  dispatch: any;
-  electronics: string[];
-  womenCategories: string[];
-  menCategories: string[];
-  productsState: any;
-  setMenuToggle: any;
-}
 export default function SideBar({
   setMenuToggle,
   electronics,
@@ -18,9 +11,7 @@ export default function SideBar({
   dispatch,
   productsState,
 }: ISideBar) {
-
   const selectProducts = (el: string) => {
-    console.log("selecte products string", el)
     dispatch(displayProducts({ state: productsState, type: el }));
   };
 
@@ -32,8 +23,8 @@ export default function SideBar({
       <h2 className="menu-heading">shop by department</h2>
       <h2>electronics</h2>
       {electronics.map((el: string) => (
-
         <Link
+          reloadDocument
           onClick={() => selectProducts(el)}
           key={el}
           to={`/home/SelectedCategory/${el}`}
@@ -43,10 +34,10 @@ export default function SideBar({
         </Link>
       ))}
 
-      <h2 >women's Fashion</h2>
+      <h2>women's Fashion</h2>
       {womenCategories.map((el: string) => (
         <Link
-
+          reloadDocument
           onClick={() => selectProducts(el)}
           className="link"
           key={el}
@@ -59,6 +50,7 @@ export default function SideBar({
 
       {menCategories.map((el: string) => (
         <Link
+          reloadDocument
           to={`/home/SelectedCategory/${el}`}
           key={el}
           className="link"
@@ -68,14 +60,15 @@ export default function SideBar({
         </Link>
       ))}
 
-      <h2 >others</h2>
+      <h2>others</h2>
       <Link
+        reloadDocument
         to={`/home/SelectedCategory/videoGames`}
-        key={"videoGames"}
+        key={'videoGames'}
         className="link"
-        onClick={() => selectProducts("video games")}
+        onClick={() => selectProducts('video games')}
       >
-        {"video games"}
+        {'video games'}
       </Link>
     </div>
   );

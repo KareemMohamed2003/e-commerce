@@ -1,19 +1,21 @@
-import { Fragment } from "react";
-import { eCommerceDB } from "../lib/firebase";
-import { Link } from "react-router-dom";
-import SideBar from "./Sidebar";
-import NotificationPopup from "./NotificationPopup";
-import LogoutIcon from "./svg-components/LogoutIcon";
-import CartIcon from "./svg-components/CartIcon";
-import Portal from "./Portal";
-import useNavbar from "../hooks/useNavbar";
-import "../sass/navbar.scss";
-function Navbar() {
+import { Fragment } from 'react';
+import { eCommerceDB } from '../lib/firebase';
+import { Link } from 'react-router-dom';
+import SideBar from './Sidebar';
+import NotificationPopup from './NotificationPopup';
+import LogoutIcon from './svg-components/LogoutIcon';
+import CartIcon from './svg-components/CartIcon';
+import Portal from './Portal';
+import useNavbar from '../hooks/useNavbar';
+import Search from './Search';
+import '../sass/navbar.scss';
+
+export default function Navbar() {
   const electronics = [
-    "cameras",
-    "security&surveillance",
-    "vehicle electronics",
-    "headphones",
+    'cameras',
+    'security&surveillance',
+    'vehicle electronics',
+    'headphones',
   ];
   const menCategories = [
     "men's shoes",
@@ -36,9 +38,15 @@ function Navbar() {
     logOut,
     productsState,
     cartCount,
+    setSearchResults,
+    searchResults,
     userData,
+    productsArr,
+    setSearchMenu,
+    searchMenu,
   } = useNavbar();
   const username = userData.username;
+
   return (
     <Fragment>
       {notificationDisplay.toggle && (
@@ -58,13 +66,21 @@ function Navbar() {
               ></div>
             ))}
           </div>
-          <div onClick={() => navigate("/home", { replace: true })}>
+          <div onClick={() => navigate('/home', { replace: true })}>
             <h1 className="main-heading">
               <span>Ease</span>
               Shop
             </h1>
           </div>
         </section>
+
+        <Search
+          setSearchMenu={setSearchMenu}
+          searchMenu={searchMenu}
+          setSearchResults={setSearchResults}
+          searchResults={searchResults}
+          productsArr={productsArr}
+        />
 
         {toggleMenu && (
           <SideBar
@@ -79,13 +95,10 @@ function Navbar() {
 
         <div className="nav-icons">
           <h1 className="username">
-            {username && username.slice(0, 8).concat("...")}
+            {username && username.slice(0, 8).concat('...')}
           </h1>
           <Link to="/home/cart">
-            <div
-              className="cart-icon-container"
-              style={{ position: "relative" }}
-            >
+            <div className="cart-icon-container">
               {cartCount > 0 ? (
                 <div className="cart-counter">
                   <span>{cartCount > 99 ? `${99}+` : cartCount}</span>
@@ -98,9 +111,7 @@ function Navbar() {
           </Link>
           <div
             className="logout-icon-container"
-            onClick={() => {
-              logOut(userData, eCommerceDB);
-            }}
+            onClick={() => logOut(userData, eCommerceDB)}
           >
             <div className="logout-icon">
               <LogoutIcon />
@@ -111,5 +122,3 @@ function Navbar() {
     </Fragment>
   );
 }
-
-export default Navbar;

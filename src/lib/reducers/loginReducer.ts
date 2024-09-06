@@ -1,27 +1,28 @@
+import { loginError } from "../../types";
 export const initialState = {
   emailError: null,
-  emailErrorMsg: "",
+  emailErrorMsg: '',
   emailValue: null,
   passwordError: null,
-  passwordErrorMsg: "",
+  passwordErrorMsg: '',
   passwordValue: null,
 };
 
-export const errorReducer = (state: any, action: any) => {
+export const errorReducer = (state: loginError, action: any): loginError => {
   switch (action.type) {
-    case "checkEmailField":
-      if (action.fieldValue === "") {
+    case 'checkEmailField':
+      if (action.fieldValue === '') {
         return {
           ...state,
           emailError: true,
-          emailErrorMsg: "EMAIL FIELD IS EMPTY",
+          emailErrorMsg: 'EMAIL FIELD IS EMPTY',
           emailValue: null,
         };
-      } else if (!action.fieldValue.includes("@")) {
+      } else if (!action.fieldValue.includes('@')) {
         return {
           ...state,
           emailError: true,
-          emailErrorMsg: "EMAIL ADDRESS MUST INCLUDE @",
+          emailErrorMsg: 'EMAIL ADDRESS MUST INCLUDE @',
         };
       } else {
         return {
@@ -32,18 +33,18 @@ export const errorReducer = (state: any, action: any) => {
         };
       }
 
-    case "checkPasswordField": {
-      if (action.fieldValue === "") {
+    case 'checkPasswordField': {
+      if (action.fieldValue === '') {
         return {
           ...state,
           passwordError: true,
-          passwordErrorMsg: "PASSWORD FIELD IS EMPTY",
+          passwordErrorMsg: 'PASSWORD FIELD IS EMPTY',
         };
       } else if (action.fieldValue.length < 8) {
         return {
           ...state,
           passwordError: true,
-          passwordErrorMsg: "PASSWORD MUST HAVE AT LEAST 8 CHARACTERS",
+          passwordErrorMsg: 'PASSWORD MUST HAVE AT LEAST 8 CHARACTERS',
         };
       } else {
         return {
@@ -55,9 +56,10 @@ export const errorReducer = (state: any, action: any) => {
       }
     }
 
-    case "reset":
+    case 'reset':
       return initialState;
     default:
-      break;
+      return initialState;
+
   }
 };

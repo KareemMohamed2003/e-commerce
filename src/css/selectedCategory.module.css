@@ -3,13 +3,21 @@
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(3, auto);
-  padding-left: 1rem;
-  padding-right: 1rem;
+  position: relative;
+  justify-content: center;
+}
+
+.category {
+  text-align: left;
+  font-size: 2rem;
 }
 
 @media screen and (max-width: 900px) {
   .selectedProducts {
     grid-template-columns: auto auto;
+  }
+  .category {
+    font-size: 1.4rem;
   }
 }
 @media screen and (max-width: 650px) {
@@ -18,4 +26,4 @@
   }
 }
 
-/*# sourceMappingURL=selectedCategory.css.map */
+/*# sourceMappingURL=selectedCategory.module.css.map */

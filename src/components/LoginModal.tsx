@@ -1,11 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
-import { getError } from "../Redux/userDataSlice";
-import { useEffect } from "react";
-import LoginIcon from "./svg-components/LoginIcon";
-import "../sass/LoginModal.scss";
-
-export default function LoginModal({ setModalToggle, setLoading }: any) {
-  const errorMessage = useSelector((state: any) => state.user.errorMessage);
+import { useDispatch } from 'react-redux';
+import { getError } from '../Redux/userDataSlice';
+import { useEffect } from 'react';
+import LoginIcon from './svg-components/LoginIcon';
+import '../sass/LoginModal.scss';
+import { useAppSelector } from '../Redux/hooks';
+import { LoginModalProps } from '../types';
+export default function LoginModal({
+  setModalToggle,
+  setLoading,
+}: LoginModalProps) {
+  const errorMessage = useAppSelector((state) => state.user.errorMessage);
 
   useEffect(() => {
     if (errorMessage) {
@@ -22,15 +26,15 @@ export default function LoginModal({ setModalToggle, setLoading }: any) {
       </div>
 
       <div>
-        <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-          {" "}
+        <p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+          {' '}
           {errorMessage}
         </p>
       </div>
       <button
         onClick={() => {
           setModalToggle(false);
-          dispatchToStore(getError({ errorCode: "clear-error" }));
+          dispatchToStore(getError({ errorCode: 'clear-error' }));
         }}
       >
         close

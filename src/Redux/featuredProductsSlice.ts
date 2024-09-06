@@ -1,10 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-const initialState = {
+import { createSlice } from '@reduxjs/toolkit';
+interface featuredProductsProps {
+  featuredProducts: [] | {}
+}
+const initialState: featuredProductsProps = {
   featuredProducts: {},
 };
 export const featuredProductsSlice = createSlice({
-  name: "featuredProductsSlice",
+  name: 'featuredProductsSlice',
   initialState,
   reducers: {
     displayFeaturedProducts: (state, action) => {

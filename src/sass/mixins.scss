@@ -1,4 +1,4 @@
-@use "./variables.scss";
+@use './variables.scss';
 
 @mixin container-style(
   $height,
@@ -88,7 +88,7 @@
 ) {
   background: $background;
   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 1.6rem;
   border: none;
   border-radius: $border-radius;

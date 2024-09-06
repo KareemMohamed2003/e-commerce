@@ -36,7 +36,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sass": "sass --watch src/sass:src/css"
+    "sass": "sass --watch src/sass:src/css",
+    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +59,6 @@
   },
   "devDependencies": {
     "@types/uuid": "^10.0.0",
-    "prettier": "3.3.3"
+    "prettier": "^3.3.3"
   }
 }

@@ -1,17 +1,11 @@
-import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import useApp from "./hooks/useApp";
-import "./App.css";
-import "./sass/homepage.scss";
-import { useSelector } from "react-redux";
-
+import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import useApp from './hooks/useApp';
+import './App.css';
+import './sass/homepage.scss';
 export default function App() {
   const { initialize } = useApp();
-  const transactionMessage = useSelector(
-    (state: any) => state.cartState.message,
-  );
-  console.log("transaction message app.tsx", transactionMessage)
   useEffect(() => {
     initialize();
   }, []);

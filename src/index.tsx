@@ -1,25 +1,27 @@
-import { loader as appLoader } from "./lib/loaders/appLoader";
-import { loader as loginLoader } from "./lib/loaders/loginLoader";
-import { createRoot } from "react-dom/client";
-import { Provider } from "react-redux";
-import { store } from "./Redux/reduxStore";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import SelectedCategory from "./pages/SelectedCategory";
-import LoginPage from "./pages/LoginPage";
-import RegistrationPage from "./pages/RegistrationPage";
-import SelectedProduct from "./pages/SelectedProduct";
-import ProtectedRoute from "./components/ProtectedRoute";
-import RouteError from "./components/RouteError";
-import ErrorPage from "./pages/ErrorPage";
-import Cart from "./pages/CartPage";
-import App from "./App";
-import "./index.css";
-import "./App.css"
-import { StrictMode } from "react";
-import Loader from "./components/Loader";
-const container = document.getElementById("root")!;
+import { loader as appLoader } from './lib/loaders/appLoader';
+import { loader as loginLoader } from './lib/loaders/loginLoader';
+import { loader as searchLoader } from './lib/loaders/searchLoader';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { store } from './Redux/reduxStore';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import SelectedCategory from './pages/SelectedCategory';
+import LoginPage from './pages/LoginPage';
+import RegistrationPage from './pages/RegistrationPage';
+import SelectedProduct from './pages/SelectedProduct';
+import ProtectedRoute from './components/ProtectedRoute';
+import ErrorPage from './pages/ErrorPage';
+import Cart from './pages/CartPage';
+import App from './App';
+import './index.css';
+import './App.css';
+import { StrictMode } from 'react';
+import Loader from './components/loaders/Loader';
+import SearchPage from './pages/SearchPage';
+const container = document.getElementById('root')!;
 const root = createRoot(container);
+
 const router = createBrowserRouter([
   {
     errorElement: <ErrorPage />,
@@ -33,26 +35,24 @@ const router = createBrowserRouter([
 
     children: [
       {
-        path: "/LoginPage",
-        errorElement: <RouteError />,
+        path: '/LoginPage',
         loader: loginLoader,
-        element: <LoginPage />
+        element: <LoginPage />,
       },
 
       {
-        path: "/RegistrationPage",
+        path: '/RegistrationPage',
+        loader: loginLoader,
         element: <RegistrationPage />,
       },
 
       {
-        path: "/",
+        path: '/',
         loader: appLoader,
-        errorElement: <RouteError />,
-
       },
 
       {
-        path: "/home",
+        path: '/home',
 
         element: <App />,
         children: [
@@ -61,22 +61,28 @@ const router = createBrowserRouter([
             element: <HomePage />,
           },
           {
-            path: "products/",
+            loader: searchLoader,
+            path: 'products/',
             element: <SelectedProduct />,
           },
           {
-            path: "cart",
+            path: 'cart',
             element: <Cart />,
           },
           {
             index: true,
-            path: "SelectedCategory/:category",
+            path: 'SelectedCategory/:category',
             element: <SelectedCategory />,
           },
           {
             index: true,
-            path: "SelectedCategory",
+            path: 'SelectedCategory',
             element: <SelectedCategory />,
+          },
+          {
+            path: 'search',
+            loader: searchLoader,
+            element: <SearchPage />,
           },
         ],
       },
@@ -93,7 +99,7 @@ root.render(
         </section>
       }
     />
-  </StrictMode>,
+  </StrictMode>
 );
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -1,16 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import { CartSliceProps } from '../types';
 
-const initialState: any = {
+const initialState: CartSliceProps = {
   isItemChanged: false,
   isItemPending: null,
   itemPending: null,
   cart: [],
-  message: null
+  message: null,
 };
-export const cartSlice: any = createSlice({
-  name: "CartSlice",
+export const cartSlice = createSlice({
+  name: 'CartSlice',
   reducers: {
-    resetCart: (state, action) => {
+    resetCart: () => {
       return initialState;
     },
     checkout: (state, action) => {
@@ -23,16 +24,15 @@ export const cartSlice: any = createSlice({
     },
 
     pendingItem: (state, action) => {
-      if (action.payload === "pending")
+      if (action.payload === 'pending')
         return {
           ...state,
           isItemPending: true,
           isItemChanged: false,
         };
-
     },
     dispatchCart: (state, action) => {
-      if (action.payload.status === "success")
+      if (action.payload.status === 'success')
         return {
           ...state,
           isItemChanged: true,
@@ -44,20 +44,20 @@ export const cartSlice: any = createSlice({
           ...state,
           isItemChanged: true,
           isItemPending: false,
-          message: "something went wrong",
+          message: 'something went wrong',
         };
       }
     },
 
     terminateProcess: (state, action) => {
-      if (action.payload === "terminate")
+      if (action.payload === 'terminate')
         return {
           ...state,
           isItemChanged: false,
           isItemPending: null,
           itemPending: null,
 
-          message: null
+          message: null,
         };
     },
     getCart: (state, action) => {

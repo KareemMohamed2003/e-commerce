@@ -1,16 +1,15 @@
-import CartItem from "../components/CartItem";
-import CartIcon from "../components/svg-components/CartIcon";
-import useCart from "../hooks/useCart";
-import useTransaction from "../hooks/useTransaction";
-import { Fragment } from "react";
-import { useNavigate } from "react-router-dom";
-import "../sass/cart.scss";
-import "../sass/loader.scss";
+import CartItem from '../components/CartItem';
+import CartIcon from '../components/svg-components/CartIcon';
+import useCart from '../hooks/useCart';
+import useTransaction from '../hooks/useTransaction';
+import { Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../sass/cart.scss';
+import '../sass/loader.scss';
 export default function Cart() {
   const { cartState, dispatch, cartTotal } = useCart();
   const { handleTransaction } = useTransaction(cartState?.cart, dispatch);
   const navigate = useNavigate();
-
   return (
     <Fragment>
       <div className="cart">
@@ -36,31 +35,27 @@ export default function Cart() {
             <button onClick={() => navigate(-1)} className="close-btn">
               close
             </button>
-
           </div>
         </div>
-        {cartState?.cart instanceof Array
-          && cartState.cart.length > 0 &&
+        {cartState?.cart instanceof Array && cartState.cart.length > 0 && (
           <div className="cart-total">
-            <h1>
-              Total
-            </h1>
+            <h1>Total</h1>
             <h1> ${cartTotal}</h1>
           </div>
-        }
+        )}
         {cartState?.cart instanceof Array
           ? cartState?.cart.map((el: any, index: any) => (
-            <CartItem
-              key={index}
-              itemName={el.imageTitle}
-              itemPrice={el.price}
-              itemImg={el.imageUrl}
-              quantity={el.quantity}
-              category={el.category}
-              id={el.id}
-              dispatch={dispatch}
-            />
-          ))
+              <CartItem
+                key={index}
+                itemName={el.imageTitle}
+                itemPrice={el.price}
+                itemImg={el.imageUrl}
+                quantity={el.quantity}
+                category={el.category}
+                id={el.id}
+                dispatch={dispatch}
+              />
+            ))
           : cartState?.cart}
       </div>
     </Fragment>

@@ -3,10 +3,10 @@
   display: flex;
   font-family: "Raleway", sans-serif;
   flex-direction: column;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-bottom: 2rem;
+  padding: 1.5rem;
+  margin-top: 1rem;
   height: 100%;
+  flex-grow: 1;
 }
 
 .homepage {
@@ -29,14 +29,13 @@
     font-size: 1.5rem;
   }
   .homepage {
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
   }
 }
 @media screen and (max-width: 650px) {
   .homepage {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 

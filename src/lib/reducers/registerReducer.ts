@@ -1,23 +1,23 @@
 export const initialState = {
   emailError: false,
-  emailErrorMsg: "",
+  emailErrorMsg: '',
   emailValue: null,
   passwordError: false,
-  passwordErrorMsg: "",
+  passwordErrorMsg: '',
   passwordValue: null,
   usernameError: false,
-  usernameErrorMsg: "",
+  usernameErrorMsg: '',
   usernameValue: null,
 };
 
 export function errorReducer(state: any, action: any) {
   switch (action.type) {
-    case "checkEmailField":
-      if (action.fieldValue === "" || action.fieldValue == null)
+    case 'checkEmailField':
+      if (action.fieldValue === '' || action.fieldValue == null)
         return {
           ...state,
           emailError: true,
-          emailErrorMsg: "EMAIL FIELD IS EMPTY",
+          emailErrorMsg: 'EMAIL FIELD IS EMPTY',
           emailValue: null,
         };
 
@@ -25,14 +25,14 @@ export function errorReducer(state: any, action: any) {
         return {
           ...state,
           emailError: true,
-          emailErrorMsg: "EMAIL ADDRESS MUST INCLUDE BE AT LEAST 5 CHARACTERS",
+          emailErrorMsg: 'EMAIL ADDRESS MUST INCLUDE BE AT LEAST 5 CHARACTERS',
         };
       }
-      if (!action.fieldValue.includes("@")) {
+      if (!action.fieldValue.includes('@')) {
         return {
           ...state,
           emailError: true,
-          emailErrorMsg: "EMAIL ADDRESS MUST INCLUDE @",
+          emailErrorMsg: 'EMAIL ADDRESS MUST INCLUDE @',
         };
       } else {
         return {
@@ -43,12 +43,12 @@ export function errorReducer(state: any, action: any) {
         };
       }
 
-    case "checkPasswordField": {
+    case 'checkPasswordField': {
       if (action.fieldValue.length < 8) {
         return {
           ...state,
           passwordError: true,
-          passwordErrorMsg: "PASSWORD MUST HAVE AT LEAST 8 CHARACTERS",
+          passwordErrorMsg: 'PASSWORD MUST HAVE AT LEAST 8 CHARACTERS',
         };
       } else {
         return {
@@ -59,19 +59,19 @@ export function errorReducer(state: any, action: any) {
         };
       }
     }
-    case "checkUsernameField": {
+    case 'checkUsernameField': {
       if (action.fieldValue.length < 4) {
         return {
           ...state,
           usernameError: true,
-          usernameErrorMsg: "USERNAME MUST AT LEAST BE FOUR CHARACTERS ",
+          usernameErrorMsg: 'USERNAME MUST AT LEAST BE FOUR CHARACTERS ',
         };
       }
-      if (action.fieldValue === "") {
+      if (action.fieldValue === '') {
         return {
           ...state,
           usernameError: true,
-          usernameErrorMsg: "USERNAME FIELD IS EMPTY",
+          usernameErrorMsg: 'USERNAME FIELD IS EMPTY',
         };
       } else {
         return {
@@ -82,7 +82,7 @@ export function errorReducer(state: any, action: any) {
         };
       }
     }
-    case "reset":
+    case 'reset':
       return initialState;
     default:
       break;

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,500&display=swap');
 .popup {
   display: flex;
   flex-direction: column;
@@ -15,7 +15,7 @@
   border-radius: 15px;
   font-size: 1.6rem;
   animation: popupAnimation 0.2s;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 @keyframes popupAnimation {
   0% {
@@ -37,7 +37,7 @@ button {
   background: #52a811;
   color: white;
   width: 50%;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   padding: 1rem;
   font-size: 1.6rem;
   border: none;

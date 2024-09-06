@@ -1,13 +1,13 @@
-@use "./variables.scss";
-@use "./mixins.scss";
-@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,200&display=swap");
+@use './variables.scss';
+@use './mixins.scss';
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,200&display=swap');
 
 .login-modal {
   @include mixins.container-style(
     20rem,
     40rem,
     unset,
-    rgba(217, 217, 217, 0.363),
+    rgba(217, 217, 217, 0.109),
     15px
   );
   display: flex;
@@ -19,7 +19,7 @@
   color: rgb(0, 0, 0);
   font-size: 1.6rem;
   animation: popupAnimation 0.2s;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   margin: 1.5rem;
   button {
     width: 30%;

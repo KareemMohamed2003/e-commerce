@@ -1,0 +1,18 @@
+.circle {
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 5px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  margin: auto;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*# sourceMappingURL=SearchLoader.module.css.map */

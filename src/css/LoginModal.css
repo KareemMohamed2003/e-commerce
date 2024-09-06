@@ -3,7 +3,7 @@
   height: 20rem;
   width: 40rem;
   border: unset;
-  background: rgba(217, 217, 217, 0.363);
+  background: rgba(217, 217, 217, 0.109);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -19,11 +19,7 @@
 }
 .login-modal button {
   width: 30%;
-  background: linear-gradient(
-    229.04deg,
-    rgba(248, 0, 0, 0.61) -10.53%,
-    rgba(255, 30, 0, 0.692) 107.64%
-  );
+  background: linear-gradient(229.04deg, rgba(248, 0, 0, 0.61) -10.53%, rgba(255, 30, 0, 0.692) 107.64%);
   border: none;
   padding: 1rem;
   border-radius: 10px;

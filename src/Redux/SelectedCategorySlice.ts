@@ -1,123 +1,133 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { filterCategories } from "../lib/helpers";
+import { createSlice } from '@reduxjs/toolkit';
+import { filterCategories } from '../lib/helpers';
+import { SelectedCategory } from '../types';
 
-const initialState: null | any = { productsToDisplay: null };
-
+const initialState: SelectedCategory = {
+  productsToDisplay: null,
+  selectedCategory: '',
+};
 
 export const SelectedCategorySlice = createSlice({
-  name: "SelectedCategorySlice",
+  name: 'SelectedCategorySlice',
   initialState,
   reducers: {
     displayProducts(state, action) {
       switch (action.payload.type) {
-        case "cameras":
+        case 'cameras':
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "electronics-cameras",
+            'electronics-cameras'
           );
+          state.selectedCategory = 'cameras';
           break;
-        case "security&surveillance":
+        case 'security&surveillance':
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "electronics-security_surveillance",
+            'electronics-security_surveillance'
           );
+          state.selectedCategory = 'security&surveillance';
+          break;
+        case 'vehicle electronics':
+          state.productsToDisplay = filterCategories(
+            action.payload.state,
+            'electronics-vehicleElectronics'
+          );
+          state.selectedCategory = 'vehicle Electronics';
 
           break;
-        case "vehicle electronics":
+        case 'headphones':
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "electronics-vehicleElectronics",
+            'electronics-headphones'
           );
-          break;
-        case "headphones":
-          state.productsToDisplay = filterCategories(
-            action.payload.state,
-            "electronics-headphones",
-          );
-
+          state.selectedCategory = 'headphones';
           break;
         case "women's clothing":
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "womenFashion-clothing",
+            'womenFashion-clothing'
           );
-
+          state.selectedCategory = 'women  clothing';
           break;
         case "women's accessories":
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "womenFashion-accessories",
+            'womenFashion-accessories'
           );
-
+          state.selectedCategory = 'women  accessories';
           break;
         case "women's handbags":
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "womenFashion-handbags",
+            'womenFashion-handbags'
           );
-
+          state.selectedCategory = 'women  handbags';
           break;
         case "women's shoes":
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "womenFashion-shoes",
+            'womenFashion-shoes'
           );
-
+          state.selectedCategory = 'women  shoes';
           break;
-        case "books":
+        case 'books':
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "books",
+            'books'
           );
-
+          state.selectedCategory = 'books';
           break;
-        case "data storage":
+        case 'data storage':
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "dataStorage",
+            'dataStorage'
           );
-
+          state.selectedCategory = 'data storage';
           break;
-        case "computer perpherials":
+        case 'computer perpherials':
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "computerPerpherials",
+            'computerPerpherials'
           );
-
+          state.selectedCategory = 'computer Perpherials';
           break;
         case "men's shoes":
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "menFashion-shoes",
+            'menFashion-shoes'
           );
+          state.selectedCategory = 'men shoes';
 
           break;
         case "men's watches":
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "menFashion-watches",
+            'menFashion-watches'
           );
-
+          state.selectedCategory = 'men watches';
           break;
         case "men's clothing":
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "menFashion-clothing",
+            'menFashion-clothing'
           );
+          state.selectedCategory = 'men clothing';
 
           break;
         case "men's accessories":
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "menFashion-accessories",
+            'menFashion-accessories'
           );
+          state.selectedCategory = 'men accessories';
 
           break;
-        case "video games":
+        case 'video games':
           state.productsToDisplay = filterCategories(
             action.payload.state,
-            "videoGames",
+            'videoGames'
           );
+          state.selectedCategory = 'video games';
           break;
         default:
           break;

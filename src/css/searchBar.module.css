@@ -1,0 +1,39 @@
+.searchWrapper {
+  height: 100%;
+  width: 100%;
+  border-radius: 11px;
+  overflow: hidden;
+}
+
+#form {
+  display: flex;
+  height: 100%;
+  position: relative;
+}
+
+#form input {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  font-size: 1.1rem;
+  border: none;
+  outline: none;
+  color: black;
+}
+
+.searchBtn {
+  width: 40px;
+  border: none;
+  padding: 2px 0px 2px 0px;
+  background: #0081aa;
+}
+
+#searchIcon {
+  margin: 0 auto;
+  display: block;
+  width: 30px;
+  height: 30px;
+  padding: 2px 3px 2px 3px;
+}
+
+/*# sourceMappingURL=searchBar.module.css.map */

@@ -124,7 +124,7 @@ ul {
   flex-direction: column;
   justify-self: center;
   margin-left: 0.7rem;
-  height: 40%;
+  height: 25%;
 }
 
 .username {
@@ -251,6 +251,59 @@ a {
   100% {
     opacity: 1;
     left: 0rem;
+  }
+}
+.searchHeader {
+  width: 100%;
+  border-radius: 15px;
+  padding: 0px 20px 0px 20px;
+  align-self: center;
+  position: relative;
+}
+
+.searchExitBtn {
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  background: inherit;
+  border: none;
+  font-size: 1.3rem;
+  height: auto;
+}
+
+.disableCloseBtn {
+  display: none;
+}
+
+.searchHeader_full {
+  position: fixed;
+  height: 3rem;
+  background: #202124;
+  z-index: 100;
+}
+
+.searchInner {
+  display: none;
+}
+
+.searchInner_full {
+  display: block;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0%;
+  left: 0%;
+  z-index: -1;
+  background: #202124;
+}
+
+@media screen and (max-width: 900px) {
+  .searchHeader {
+    display: flex;
+    gap: 15px;
+  }
+  nav {
+    padding: 0rem;
+    top: 0rem;
   }
 }
 

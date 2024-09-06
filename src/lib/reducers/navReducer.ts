@@ -8,23 +8,23 @@ export const initialState = {
 
 export const displayReducer = (state: any, action: any) => {
   switch (action.type) {
-    case "displayCart":
+    case 'displayCart':
       return {
         displayCart: true,
         toggle: !state.toggle,
       };
 
-    case "displayNotification":
+    case 'displayNotification':
       return {
         displayNotification: !state.displayNotification,
         toggle: !state.toggle,
       };
-    case "displayCartNotification":
+    case 'displayCartNotification':
       return {
         displayCartNotification: true,
         toggle: true,
       };
-    case "disableCartNotification":
+    case 'disableCartNotification':
       return {
         displayCartNotification: true,
         toggle: false,

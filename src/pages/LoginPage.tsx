@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import Portal from "../components/Portal";
-import LoginModal from "../components/LoginModal";
-import WhirlyLoader from "../components/whirlyLoader";
-import useLogin from "../hooks/useLogin";
-import styles from "../sass/loginForm.module.scss";
+import { Link } from 'react-router-dom';
+import Portal from '../components/Portal';
+import LoginModal from '../components/LoginModal';
+import WhirlyLoader from '../components/loaders/whirlyLoader';
+import useLogin from '../hooks/useLogin';
+import styles from '../sass/loginForm.module.scss';
 export default function LoginPage() {
   const {
     loading,
@@ -36,16 +36,18 @@ export default function LoginPage() {
             type="text"
             placeholder="email"
             ref={emailRef}
+            name="emailInput"
           />
           {formErrors.passwordError && (
             <p className={styles.errorMessage}>
-              {formErrors.passwordErrorMsg}{" "}
+              {formErrors.passwordErrorMsg}{' '}
             </p>
           )}
           <input
             disabled={loading ? true : false}
             type="password"
             placeholder="password"
+            name="passwordInput"
             ref={passwordRef}
           />
           <button
@@ -53,7 +55,7 @@ export default function LoginPage() {
             type="submit"
             disabled={loading ? true : false}
           >
-            {" "}
+            {' '}
             sign in
           </button>
         </form>

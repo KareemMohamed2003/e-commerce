@@ -1,0 +1,48 @@
+.searchPage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 1rem;
+  justify-content: center;
+  font-family: 'Raleway', sans-serif;
+}
+.paginationBtn {
+  border-radius: 8px;
+  padding: 10px;
+  border: none;
+  h2 {
+    color: rgb(255, 255, 255);
+  }
+}
+
+.searchHeading {
+  margin-bottom: 1.5rem;
+}
+
+.pageLink {
+  span {
+    padding: 10px 12px 10px 12px;
+    background: #208336;
+    border: 1px rgb(255, 255, 255) solid;
+  }
+}
+.pagination {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+  .searchPage {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .searchPage {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -1,45 +1,47 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import Product from "../components/Product";
-import "../sass/selectedCategory.scss";
-import "../sass/cart.scss";
-import { useParams, useSearchParams } from "react-router-dom";
+import { Fragment, useEffect, useState } from 'react';
+import { useAppSelector } from '../Redux/hooks';
+import Product from '../components/Product';
+import styles from '../sass/selectedCategory.module.scss';
+import Loader from '../components/loaders/Loader';
+import '../sass/cart.scss';
 export default function SelectedCategory() {
-  const selectedProducts = useSelector(
-    (state: any) => state.selectedProducts.productsToDisplay,
+  const selectedProducts = useAppSelector(
+    (state) => state.selectedProducts.productsToDisplay
   );
-  const products = useSelector(
-    (state: any) => state.products.products,
-  )
+  const selectedCategory = useAppSelector(
+    (state) => state.selectedProducts.selectedCategory
+  );
+
+  const products = useAppSelector((state) => state.products.products);
   const [selectedItems, setSelectedItems] = useState<any>(null);
-  const [loading, setLoading] = useState<boolean>(true)
-  const params = useParams()
-  const category = params.category
-
-  console.log(category)
+  const [category, setCategory] = useState<string>();
+  console.log('selected product', selectedProducts);
   useEffect(() => {
-    if (selectedProducts) {
+    if (products) {
       setSelectedItems(selectedProducts);
+      setCategory(selectedCategory);
     }
-
-  }, [selectedProducts]);
+  }, [selectedProducts, products]);
   return (
-    <section className="selectedProducts">
-      {selectedItems &&
-        selectedItems.map((el: any, index: number) =>
-        (
-          <Product
-            key={index}
-            imageUrl={el.imageUrl}
-            imageTitle={el.imageTitle}
-            price={el.price}
-            category={el?.subCategory ? el.subCategory : el.category}
-            index={index}
-            id={el.id}
-          />
-        )
-        )
-      }
-    </section>
+    <Fragment>
+      <h1 className={styles.category}>{category && category}</h1>
+      <section className={styles.selectedProducts}>
+        {selectedItems ? (
+          selectedItems.map((el: any, index: number) => (
+            <Product
+              key={index}
+              imageUrl={el.imageUrl}
+              imageTitle={el.imageTitle}
+              price={el.price}
+              category={el?.subCategory ? el.subCategory : el.category}
+              index={index}
+              id={el.id}
+            />
+          ))
+        ) : (
+          <Loader />
+        )}
+      </section>
+    </Fragment>
   );
 }

@@ -1,5 +1,5 @@
-@use "./variables.scss";
-@use "./mixins.scss";
+@use './variables.scss';
+@use './mixins.scss';
 
 .cart {
   @include mixins.container-style(100%, 100%, unset, inherit);
@@ -13,6 +13,7 @@
   backdrop-filter: blur(27px);
   animation: popupAnimation 0.4s ease-in-out;
   color: white;
+  flex-grow: 1;
 }
 
 .cart-item {

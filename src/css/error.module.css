@@ -1,0 +1,23 @@
+#errorPage {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  gap: 1rem;
+  align-items: center;
+}
+#errorPage h1 {
+  text-align: center;
+}
+
+.errorBtn {
+  background: #b86c27;
+  border-radius: 15px;
+  border: none;
+  font-size: 1.2rem;
+  padding: 10px 30px 10px 30px;
+}
+
+/*# sourceMappingURL=error.module.css.map */

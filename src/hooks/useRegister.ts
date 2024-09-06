@@ -1,26 +1,27 @@
-import { useEffect, useReducer, useRef, useState } from "react";
-import { changeUsername, addUsertoFireBase, app } from "../lib/firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { togglePopup } from "../Redux/popupSlice";
-import { getError } from "../Redux/userDataSlice";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { dateFormatter } from "../lib/helpers";
-import { getDatabase } from "firebase/database";
-import { errorReducer, initialState } from "../lib/reducers/registerReducer";
+import { useEffect, useReducer, useRef, useState } from 'react';
+import { changeUsername, addUsertoFireBase, app } from '../lib/firebase';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../Redux/hooks';
+import { togglePopup } from '../Redux/popupSlice';
+import { getError } from '../Redux/userDataSlice';
+import { getAuth, createUserWithEmailAndPassword, Auth } from 'firebase/auth';
+import { dateFormatter } from '../lib/helpers';
+import { getDatabase } from 'firebase/database';
+import { errorReducer, initialState } from '../lib/reducers/registerReducer';
 export default function useRegister() {
   const auth = getAuth();
   const db = getDatabase(app);
-  const { displayPopup } = useSelector((state: any) => state.popupToggle);
-  const [toggleModal, setModalToggle] = useState(false);
-  const [isLoading, setLoading] = useState<any>();
+  const { displayPopup } = useAppSelector((state) => state.popupToggle);
+  const [toggleModal, setModalToggle] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
   const dispatchToStore = useDispatch();
-  const emailRef = useRef<any>(null);
-  const passwordRef = useRef<any>(null);
-  const userNameRef = useRef<any>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const userNameRef = useRef<HTMLInputElement>(null);
 
   const [formErrors, dispatch]: any = useReducer<any>(
     errorReducer,
-    initialState,
+    initialState
   );
 
   const register = (
@@ -28,7 +29,7 @@ export default function useRegister() {
     password: string,
     username: string,
     createAccount: boolean,
-    auth: any,
+    auth: Auth
   ) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -38,7 +39,7 @@ export default function useRegister() {
           username,
           email,
           dateFormatter.format(new Date()),
-          db,
+          db
         );
 
         dispatchToStore(togglePopup(true));
@@ -46,25 +47,23 @@ export default function useRegister() {
 
       .catch((error) => {
         const errorCode = error.code;
-        // console.log(errorCode)
-        dispatchToStore(getError({ errorCode: errorCode.split("/")[1] }));
+        dispatchToStore(getError({ errorCode: errorCode.split('/')[1] }));
         setModalToggle(true);
         const errorMessage = error.message;
-        // console.log(errorMessage)
       });
   };
 
   const submitForm = (e: any) => {
     e.preventDefault();
     const emailAddress = e.target[0].value;
-    dispatch({ type: "checkEmailField", fieldValue: emailAddress });
+    dispatch({ type: 'checkEmailField', fieldValue: emailAddress });
     const password = e.target[1].value;
-    dispatch({ type: "checkPasswordField", fieldValue: password });
+    dispatch({ type: 'checkPasswordField', fieldValue: password });
     const username = e.target[2].value;
-    dispatch({ type: "checkUsernameField", fieldValue: username });
-    emailRef.current!.value = "";
-    passwordRef.current.value = "";
-    userNameRef.current.value = "";
+    dispatch({ type: 'checkUsernameField', fieldValue: username });
+    emailRef.current!.value = '';
+    passwordRef.current!.value = '';
+    userNameRef.current!.value = '';
   };
 
   useEffect(() => {
@@ -78,9 +77,9 @@ export default function useRegister() {
         formErrors.passwordValue,
         formErrors.usernameValue,
         true,
-        auth,
+        auth
       );
-      dispatch({ type: "reset" });
+      dispatch({ type: 'reset' });
     }
   }, [formErrors]);
 

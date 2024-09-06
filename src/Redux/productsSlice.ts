@@ -1,12 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-
-const initialState = {
+const initialState: { products: null | [] } = {
   products: null,
 };
 
 export const productsSlice = createSlice({
-  name: "productsSlice",
+  name: 'productsSlice',
   initialState,
   reducers: {
     getData: (state, action) => {

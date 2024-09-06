@@ -1,10 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-const initialState = {
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState: { displayPopup: boolean } = {
   displayPopup: false,
 };
 
-export const popupSlice: any = createSlice({
-  name: "popupSlice",
+export const popupSlice = createSlice({
+  name: 'popupSlice',
   reducers: {
     togglePopup: (state, action) => {
       state.displayPopup = action.payload; // payload should be a boolean value

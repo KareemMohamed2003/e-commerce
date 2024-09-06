@@ -1,12 +1,12 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import "../sass/registerationPopup.scss";
-import { togglePopup } from "../Redux/popupSlice";
-import RegisterationIcon from "./svg-components/RegisterationIcon";
-export default function Popup(props: any) {
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import '../sass/registerationPopup.scss';
+import { togglePopup } from '../Redux/popupSlice';
+import RegisterationIcon from './svg-components/RegisterationIcon';
+export default function Popup() {
   const dispatchToStore = useDispatch();
   const navigate = useNavigate();
-  console.log("registeration pop");
+  console.log('registeration pop');
   return (
     <div className="popup">
       <h1>your account has been created </h1>
@@ -17,7 +17,7 @@ export default function Popup(props: any) {
       <button
         className="continue-btn"
         onClick={() => {
-          navigate("/LoginPage");
+          navigate('/LoginPage');
           dispatchToStore(togglePopup(false));
         }}
       >

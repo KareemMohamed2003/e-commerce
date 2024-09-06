@@ -14,7 +14,6 @@
     background-color: #7a797c;
     background-clip: content-box;
   }
-
 }
 
 .App {
@@ -28,11 +27,11 @@ html {
 body {
   color: azure;
   min-height: 100%;
+  background: #202124;
 }
 
 #root {
-  background: #202124;
-  min-height: 100vh;
+  min-height: 100%;
   height: 100%;
 }
 
@@ -42,11 +41,14 @@ button {
 
 .App {
   height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .appLoader {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%)
+  transform: translate(50%, -50%);
 }

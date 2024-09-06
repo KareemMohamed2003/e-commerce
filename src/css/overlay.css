@@ -1,5 +1,6 @@
 .overlay {
   width: 100vw;
+  background: rgba(24, 24, 24, 0.491);
   height: 100vh;
   position: fixed;
   width: 100%;
@@ -8,7 +9,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 #portal {

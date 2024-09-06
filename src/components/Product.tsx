@@ -1,20 +1,13 @@
-import { Fragment } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from "../lib/cartActions";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { resolvePath } from "../lib/helpers";
-import Loader from "./Loader";
-import styles from "../sass/product.module.scss"
-export interface ProductProps {
-  imageUrl: string;
-  imageTitle: string;
-  price: string;
-  id: string;
-  category: string;
-  subCategory?: string;
-  index?: number;
-}
+import { Fragment } from 'react';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../lib/cartActions';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { resolvePath } from '../lib/helpers';
+import { useAppSelector } from '../Redux/hooks';
+import Loader from './loaders/Loader';
+import styles from '../sass/product.module.scss';
+import { ProductProps } from '../types';
 
 export default function Product({
   imageUrl,
@@ -22,10 +15,9 @@ export default function Product({
   price,
   category,
   id,
-  index
+  index,
 }: ProductProps) {
-
-  const userID = useSelector((state: any) => state.user.userId);
+  const userID = useAppSelector((state) => state.user.userId) as string;
   const location = useLocation();
   const item = {
     imageUrl,
@@ -33,11 +25,11 @@ export default function Product({
     price,
     category,
     id,
-    quantity: 1
+    quantity: 1,
   };
 
-  const url = `products/?name=${imageTitle}&category=${category}&id=${id}`
-  const path = resolvePath(location.pathname, url)
+  const url = `products/?name=${imageTitle}&category=${category}&id=${id}`;
+  const path = resolvePath(location.pathname, url);
   const dispatchToStore = useDispatch();
   return (
     <Fragment>
@@ -45,20 +37,23 @@ export default function Product({
         <Link key={index} to={path}>
           {imageUrl ? (
             <div className={styles.imageContainer}>
-              <img className={styles.productImage} src={imageUrl} alt="not found" />
+              <img
+                className={styles.productImage}
+                loading="lazy"
+                src={imageUrl}
+                alt={imageTitle}
+              />
             </div>
           ) : (
             <Loader />
           )}
         </Link>
-        <section className={styles.productInfo} >
-          <div>
-            <p className={styles.productName}>
-              {imageTitle?.length >= 66
-                ? imageTitle.slice(0, 56).concat("...")
-                : imageTitle}
-            </p>
-          </div>
+        <section className={styles.productInfo}>
+          <p className={styles.productName}>
+            {imageTitle?.length >= 66
+              ? imageTitle.slice(0, 56).concat('...')
+              : imageTitle}
+          </p>
 
           <div className={styles.addProduct}>
             <button
@@ -71,6 +66,6 @@ export default function Product({
           </div>
         </section>
       </section>
-    </Fragment >
+    </Fragment>
   );
 }

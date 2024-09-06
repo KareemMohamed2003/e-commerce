@@ -1,20 +1,17 @@
-import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import "../sass/notificationPopup.scss";
-import AddIcon from "./svg-components/AddIcon";
-import DeleteItemIcon from "./svg-components/DeleteItemIcon";
-import CheckoutIcon from "./svg-components/CheckoutIcon";
-
+import { useAppSelector } from '../Redux/hooks';
+import { useState, useEffect } from 'react';
+import AddIcon from './svg-components/AddIcon';
+import DeleteItemIcon from './svg-components/DeleteItemIcon';
+import CheckoutIcon from './svg-components/CheckoutIcon';
+import '../sass/notificationPopup.scss';
+import { IconProps } from '../types';
 export default function NotificationPopup() {
-  const transactionMessage = useSelector(
-    (state: any) => state.cartState.message,
-  );
-  console.log("transaction mesaage", transactionMessage)
+  const transactionMessage = useAppSelector((state) => state.cartState.message);
   useEffect(() => {
     switch (transactionMessage) {
-      case "item added to cart":
+      case 'item added to cart':
         setIcon({
-          styling: "notificationPopup add-notification",
+          styling: 'notificationPopup add-notification',
           icon: (
             <div className="notification-icon-container">
               <AddIcon />
@@ -22,9 +19,9 @@ export default function NotificationPopup() {
           ),
         });
         break;
-      case "item removed from cart":
+      case 'item removed from cart':
         setIcon({
-          styling: "notificationPopup delete-notification",
+          styling: 'notificationPopup delete-notification',
           icon: (
             <div className="notification-icon-container">
               <DeleteItemIcon />
@@ -32,9 +29,9 @@ export default function NotificationPopup() {
           ),
         });
         break;
-      case "checkout complete":
+      case 'checkout complete':
         setIcon({
-          styling: "notificationPopup checkout-notification",
+          styling: 'notificationPopup checkout-notification',
           icon: (
             <div className="notification-icon-container">
               <CheckoutIcon />
@@ -45,12 +42,11 @@ export default function NotificationPopup() {
     }
   }, [transactionMessage]);
 
-  const [Icon, setIcon] = useState<any>({ icon: null, style: "" });
+  const [Icon, setIcon] = useState<IconProps>({ icon: null, styling: '' });
 
   return (
     <div className={Icon.styling}>
       {Icon.icon}
-
       <h1>{transactionMessage}</h1>
     </div>
   );
