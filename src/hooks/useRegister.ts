@@ -8,6 +8,9 @@ import { getAuth, createUserWithEmailAndPassword, Auth } from 'firebase/auth';
 import { dateFormatter } from '../lib/helpers';
 import { getDatabase } from 'firebase/database';
 import { errorReducer, initialState } from '../lib/reducers/registerReducer';
+import { registerForm } from '../types';
+
+
 export default function useRegister() {
   const auth = getAuth();
   const db = getDatabase(app);
@@ -19,7 +22,7 @@ export default function useRegister() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const userNameRef = useRef<HTMLInputElement>(null);
 
-  const [formErrors, dispatch]: any = useReducer<any>(
+  const [formErrors, dispatch] = useReducer(
     errorReducer,
     initialState
   );
@@ -53,14 +56,15 @@ export default function useRegister() {
       });
   };
 
-  const submitForm = (e: any) => {
+  const submitForm = (e: React.FormEvent<registerForm>) => {
     e.preventDefault();
-    const emailAddress = e.target[0].value;
+    const emailAddress = e.currentTarget.elements["emailInput"].value;
     dispatch({ type: 'checkEmailField', fieldValue: emailAddress });
-    const password = e.target[1].value;
+    const password = e.currentTarget.elements["passwordInput"].value;
     dispatch({ type: 'checkPasswordField', fieldValue: password });
-    const username = e.target[2].value;
+    const username = e.currentTarget.elements["usernameInput"].value;
     dispatch({ type: 'checkUsernameField', fieldValue: username });
+    console.log(emailAddress, password, username)
     emailRef.current!.value = '';
     passwordRef.current!.value = '';
     userNameRef.current!.value = '';

@@ -1,6 +1,3 @@
-import { Fragment } from 'react';
-import { eCommerceDB } from '../lib/firebase';
-import { Link } from 'react-router-dom';
 import SideBar from './Sidebar';
 import NotificationPopup from './NotificationPopup';
 import LogoutIcon from './svg-components/LogoutIcon';
@@ -8,10 +5,14 @@ import CartIcon from './svg-components/CartIcon';
 import Portal from './Portal';
 import useNavbar from '../hooks/useNavbar';
 import Search from './Search';
+import { Fragment } from 'react';
+import { eCommerceDB } from '../lib/firebase';
+import { Link } from 'react-router-dom';
+import { selectedCategoryType, userCredentials } from '../types';
 import '../sass/navbar.scss';
 
 export default function Navbar() {
-  const electronics = [
+  const electronics: selectedCategoryType[] = [
     'cameras',
     'security&surveillance',
     'vehicle electronics',
@@ -31,7 +32,7 @@ export default function Navbar() {
   ];
   const {
     toggleMenu,
-    notificationDisplay,
+    cartNotification,
     dispatch,
     setMenuToggle,
     navigate,
@@ -49,9 +50,9 @@ export default function Navbar() {
 
   return (
     <Fragment>
-      {notificationDisplay.toggle && (
+      {cartNotification && (
         <Portal>
-          {notificationDisplay.displayCartNotification && <NotificationPopup />}
+          <NotificationPopup />
         </Portal>
       )}
       <nav className="navbar">
@@ -111,7 +112,7 @@ export default function Navbar() {
           </Link>
           <div
             className="logout-icon-container"
-            onClick={() => logOut(userData, eCommerceDB)}
+            onClick={() => logOut(userData as userCredentials, eCommerceDB)}
           >
             <div className="logout-icon">
               <LogoutIcon />

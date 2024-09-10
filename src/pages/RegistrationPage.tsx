@@ -31,9 +31,6 @@ export default function RegistrationPage() {
       <div className={styles.loginForm}>
         <h1>create account</h1>
         <form onSubmit={submitForm}>
-          {formErrors.emailError && (
-            <p className={styles.errorMessage}>{formErrors.emailErrorMsg} </p>
-          )}
           {formErrors.usernameError && (
             <p className={styles.errorMessage}>
               {formErrors.usernameErrorMsg}{' '}
@@ -43,13 +40,16 @@ export default function RegistrationPage() {
             autoComplete="off"
             ref={userNameRef}
             type="text"
-            name="userNameField"
+            name="usernameInput"
             placeholder="username"
           />
+          {formErrors.emailError && (
+            <p className={styles.errorMessage}>{formErrors.emailErrorMsg} </p>
+          )}
           <input
             ref={emailRef}
             type="text"
-            name="emailField"
+            name="emailInput"
             placeholder="email"
             autoComplete="off"
           />
@@ -64,7 +64,7 @@ export default function RegistrationPage() {
             autoComplete="off"
             ref={passwordRef}
             type="password"
-            name="passwordField"
+            name="passwordInput"
             placeholder="password"
           />
 

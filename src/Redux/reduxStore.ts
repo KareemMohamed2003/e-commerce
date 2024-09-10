@@ -44,12 +44,12 @@ export interface RootState {
 export const persistedReducers = persistCombineReducers(persistConfig, {
   user: userDataSlice,
   cartState: cartSlice,
-  // [firebaseData.reducerPath]: firebaseData.reducer,
-  // [userData.reducerPath]: userData.reducer,
   products: productsSlice.reducer,
   featuredProducts: featuredProductsSlice.reducer,
   selectedProducts: SelectedCategorySlice.reducer,
   popupToggle: popupSlice.reducer,
+  // [firebaseData.reducerPath]: firebaseData.reducer,
+  // [userData.reducerPath]: userData.reducer, 
 });
 
 export const store = configureStore({

@@ -4,35 +4,35 @@ import RemoveItemIcon from './svg-components/RemoveItemIcon';
 import { useAppSelector } from '../Redux/hooks';
 import { CartItemProps } from '../types';
 export default function CartItem({
-  itemName,
-  itemPrice,
-  itemImg,
+  imageTitle,
+  price,
+  imageUrl,
   quantity,
   category,
-  dispatch,
   id,
+  dispatch,
 }: CartItemProps) {
   const dispatchToStore = useDispatch();
   const currentUserId = useAppSelector((state) => state.user.userId) as string;
+
   const item = {
-    imageTitle: itemName,
-    price: itemPrice,
-    imageUrl: itemImg,
+    imageTitle,
+    price,
+    imageUrl,
     quantity,
     category,
     id,
   };
-
   return (
     <div className="cart-item">
       <div className="img-container">
-        <img src={itemImg} alt="" />
+        <img src={imageUrl} alt="" />
       </div>
       <div className="cart-item-description">
         <p>
-          {itemName.length > 55
-            ? itemName.slice(0, 65).concat('...')
-            : itemName}
+          {imageTitle.length > 55
+            ? imageTitle.slice(0, 65).concat('...')
+            : imageTitle}
         </p>
       </div>
 
@@ -41,7 +41,7 @@ export default function CartItem({
         <p>{quantity}</p>
       </div>
       <div className="cart-item-price">
-        <p>{itemPrice}$</p>
+        <p>{price}$</p>
       </div>
       <div className="buttons">
         <button
@@ -60,7 +60,7 @@ export default function CartItem({
         <button
           className="subtract-btn"
           onClick={() =>
-            decrementItem(item, currentUserId, dispatchToStore, dispatch)
+            decrementItem(item, currentUserId, dispatchToStore, dispatch!)
           }
         >
           -{' '}
@@ -68,7 +68,7 @@ export default function CartItem({
         <button
           className="delete-btn"
           onClick={() =>
-            deleteItem(item.id, currentUserId, dispatchToStore, dispatch)
+            deleteItem(item.id, currentUserId, dispatchToStore, dispatch!)
           }
         >
           <div className="remove-item-icon">

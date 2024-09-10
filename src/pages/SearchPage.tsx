@@ -18,8 +18,10 @@ export default function SearchPage() {
 
   const productParam: string = searchParams.get('product') as string;
   const page: number = Number(searchParams.get('page'));
-  const [searchResults, setSearchResults] = useState<[] | null>([]);
-  const [paginatedResults, setPaginatedResults] = useState<[] | null>([]);
+  const [searchResults, setSearchResults] = useState<ProductProps[] | null>([]);
+  const [paginatedResults, setPaginatedResults] = useState<
+    ProductProps[] | null
+  >([]);
 
   useEffect(() => {
     if (products) {

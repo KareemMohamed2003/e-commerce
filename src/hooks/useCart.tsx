@@ -3,7 +3,7 @@ import { useAppSelector } from '../Redux/hooks';
 import { getCartTotal, isObjLength } from '../lib/helpers';
 import TransactionLoader from '../components/loaders/TransactionLoader';
 import Loader from '../components/loaders/Loader';
-import { CartProps, cartAction, cartActionType } from '../types';
+import { CartProps, cartAction } from '../types';
 
 const initialState: CartProps = {
   cart: [],
@@ -36,13 +36,13 @@ export default function useCart() {
   const [cartTotal, setTotal] = useState<number | null>();
 
   useEffect(() => {
-    dispatch({ type: cartActionType.loading });
+    dispatch({ type: 'loading' });
     if (isObjLength(cart)) {
-      dispatch({ type: cartActionType.loaded, payload: cart });
+      dispatch({ type: 'loaded', payload: cart });
       setTotal(getCartTotal(cart));
     } else {
       setTotal(0);
-      return dispatch({ type: cartActionType.empty });
+      return dispatch({ type: 'empty' });
     }
   }, [cart, cartTotal]);
 

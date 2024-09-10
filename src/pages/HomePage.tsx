@@ -7,7 +7,9 @@ import { Outlet } from 'react-router-dom';
 import Product from '../components/Product';
 import '../sass/homepage.scss';
 export default function HomePage() {
-  const [selectedItems, setSelectedItems] = useState<any>(null);
+  const [selectedItems, setSelectedItems] = useState<ProductProps[] | null>(
+    null
+  );
   const productsState = useAppSelector((state) => state.products.products);
   readFromDB('/products', eCommerceDB);
   useEffect(() => {

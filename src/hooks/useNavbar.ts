@@ -1,5 +1,5 @@
 import { getAuth } from 'firebase/auth';
-import { useReducer, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUserEntry } from '../lib/cartActions';
@@ -9,10 +9,11 @@ import { resetCart } from '../Redux/cartSlice';
 import { signOut } from '../Redux/userDataSlice';
 import { resetProducts } from '../Redux/productsSlice';
 import { resetSelectedProducts } from '../Redux/SelectedCategorySlice';
-import { displayReducer, initialState } from '../lib/reducers/navReducer';
 import { toArray } from '../lib/helpers';
 import { useAppSelector } from '../Redux/hooks';
-import { SearchMenu } from '../types';
+import { ProductProps, SearchMenu, userCredentials } from '../types';
+import { Database } from 'firebase/database';
+
 export default function useNavbar() {
   const auth = getAuth();
   const dispatch = useDispatch();
@@ -21,19 +22,17 @@ export default function useNavbar() {
   const cartState = useAppSelector((state) => state.cartState);
   const userData = useAppSelector((state) => state.user);
   const productsState = useAppSelector((state) => state);
-  const [productsArr, setProducts] = useState<any[]>([]);
+  const [productsArr, setProducts] = useState<ProductProps[]>([]);
   const [toggleMenu, setMenuToggle] = useState(false);
-  const [searchResults, setSearchResults] = useState<[] | null>(null);
+  const [searchResults, setSearchResults] = useState<ProductProps[] | null>(null);
   const [searchMenu, setSearchMenu] = useState<SearchMenu>({
     compact: false,
     fullScreen: false,
     toggle: false,
   });
-  const [notificationDisplay, dispatchReducer]: any = useReducer<any>(
-    displayReducer,
-    initialState
-  );
 
+
+  const [cartNotification, setCartNotification] = useState<boolean>(false)
   useEffect(() => {
     const products = productsState.products.products;
     products && setProducts(toArray(products));
@@ -41,29 +40,33 @@ export default function useNavbar() {
 
   useEffect(() => {
     if (cartState.checkout) {
-      dispatchReducer({ type: 'displayCartNotification' });
+      setCartNotification(true)
+
     }
     if (cartState.isItemChanged) {
-      dispatchReducer({ type: 'displayCartNotification' });
+      setCartNotification(true)
+
     } else if (!cartState.isItemPending) {
-      dispatchReducer({ type: 'disableCartNotification' });
+      setCartNotification(false)
+
     }
+
   }, [cartState]);
 
-  const logOut = async (userData: any, eCommerceDB: any) => {
+  const logOut = async (userData: userCredentials, eCommerceDB: Database) => {
     addUserEntry('checkOut', userData, eCommerceDB);
     dispatch(resetCart());
     dispatch(signOut());
     dispatch(resetProducts());
     dispatch(resetFeaturedProducts());
     dispatch(resetSelectedProducts());
-    await auth.signOut();
     await reduxPersistor.purge();
+    await auth.signOut();
     navigate('/LoginPage', { replace: true });
   };
   return {
     toggleMenu,
-    notificationDisplay,
+    cartNotification,
     dispatch,
     setMenuToggle,
     navigate,

@@ -1,39 +1,37 @@
 import { ReactNode } from 'react';
 
+
 // cart props
 
 export interface CartSliceProps {
    isItemChanged: boolean | null;
    isItemPending: boolean | null;
    itemPending: boolean | null;
-   cart: [];
+   cart: CartItemProps[];
    message: string | null;
    checkout?: boolean;
 }
 
 export interface CartItemProps {
    id: string;
-   itemName: string;
-   itemImg: string;
-   itemPrice: number;
+   imageTitle: string;
+   imageUrl: string;
+   price: number;
    quantity: number;
    category: string;
-   dispatch: React.Dispatch<any>;
+   dispatch?: React.Dispatch<any>;
+
 }
+
 
 export interface CartProps {
-   cart: any[] | ReactNode;
-   displayCheckoutModal: any;
+   cart: CartItemProps[] | ReactNode | [];
+   displayCheckoutModal: boolean;
 }
 
-export enum cartActionType {
-   loading = 'loading',
-   empty = 'empty',
-   loaded = 'loaded',
-   loading_Transaction = 'loading Transaction', //! !@!!
-   checkout = 'checkout',
-}
+
+type cartActionType = "loading" | 'empty' | 'loaded' | 'loading Transaction' | 'checkout'
 export interface cartAction {
    type: cartActionType;
-   payload?: [];
+   payload?: CartItemProps[];
 }

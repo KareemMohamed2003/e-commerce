@@ -15,7 +15,11 @@ export const userDataSlice = createSlice({
     },
 
     signOut: () => {
-      return { ...initialState };
+      return {
+        userId: null,
+        errorMessage: false,
+        username: null,
+      };
     },
     getError: (state, action) => {
       switch (action.payload.errorCode) {

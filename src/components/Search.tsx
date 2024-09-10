@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import SearchBar from './SearchBar';
-import SearchResults from './SearchResults';
 import { handleSearchLayout, closeSearch } from '../lib/searchActions';
+import SearchResults from './SearchResults';
+import SearchBar from './SearchBar';
 import { SearchProps } from '../types';
 
 export default function Search({

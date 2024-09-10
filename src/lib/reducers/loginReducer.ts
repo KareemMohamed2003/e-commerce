@@ -1,5 +1,5 @@
-import { loginError } from "../../types";
-export const initialState = {
+import { loginAction, loginError } from "../../types";
+export const initialState: loginError = {
   emailError: null,
   emailErrorMsg: '',
   emailValue: null,
@@ -8,7 +8,7 @@ export const initialState = {
   passwordValue: null,
 };
 
-export const errorReducer = (state: loginError, action: any): loginError => {
+export const errorReducer = (state: loginError, action: loginAction): loginError => {
   switch (action.type) {
     case 'checkEmailField':
       if (action.fieldValue === '') {
@@ -18,7 +18,7 @@ export const errorReducer = (state: loginError, action: any): loginError => {
           emailErrorMsg: 'EMAIL FIELD IS EMPTY',
           emailValue: null,
         };
-      } else if (!action.fieldValue.includes('@')) {
+      } else if (!action.fieldValue!.includes('@')) {
         return {
           ...state,
           emailError: true,
@@ -29,7 +29,7 @@ export const errorReducer = (state: loginError, action: any): loginError => {
           ...state,
           emailError: false,
           emailErrorMsg: null,
-          emailValue: action.fieldValue,
+          emailValue: action.fieldValue!,
         };
       }
 
@@ -40,7 +40,7 @@ export const errorReducer = (state: loginError, action: any): loginError => {
           passwordError: true,
           passwordErrorMsg: 'PASSWORD FIELD IS EMPTY',
         };
-      } else if (action.fieldValue.length < 8) {
+      } else if (action.fieldValue!.length < 8) {
         return {
           ...state,
           passwordError: true,
@@ -51,7 +51,7 @@ export const errorReducer = (state: loginError, action: any): loginError => {
           ...state,
           passwordError: false,
           passwordErrorMsg: null,
-          passwordValue: action.fieldValue,
+          passwordValue: action.fieldValue!,
         };
       }
     }

@@ -1,17 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { filterCategories } from '../lib/helpers';
-import { SelectedCategory } from '../types';
+import { SelectedCategory, selectedCategoryType } from '../types';
 
 const initialState: SelectedCategory = {
   productsToDisplay: null,
   selectedCategory: '',
 };
 
+
+
+interface selectedCategoryAction {
+  payload: { type: selectedCategoryType; state: unknown };
+}
+
 export const SelectedCategorySlice = createSlice({
   name: 'SelectedCategorySlice',
   initialState,
   reducers: {
-    displayProducts(state, action) {
+    displayProducts(state: SelectedCategory, action: selectedCategoryAction) {
       switch (action.payload.type) {
         case 'cameras':
           state.productsToDisplay = filterCategories(

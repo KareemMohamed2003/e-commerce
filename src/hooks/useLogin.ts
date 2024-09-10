@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer, useRef, FormEvent } from 'react';
+import { useEffect, useState, useReducer, useRef, FormEvent, } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCart } from '../Redux/cartSlice';
 import { setUserSlice } from '../Redux/userDataSlice';
@@ -21,24 +21,22 @@ export default function useLogin() {
     errorReducer,
     initialState
   );
-
-
   const errorMessage = useAppSelector((state) => state.user.errorMessage);
   const currentUser = useAppSelector((state) => state.user);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const submitForm = (e: FormEvent<LoginForm>) => {
-
     e.preventDefault();
 
     const emailAddress = e.currentTarget.elements["emailInput"].value;
-    dispatch({ type: 'checkEmailField', fieldValue: emailAddress });
+    dispatch({ type: "checkEmailField", fieldValue: emailAddress });
     const password = e.currentTarget.elements["passwordInput"].value;
-    dispatch({ type: 'checkPasswordField', fieldValue: password });
+    dispatch({ type: "checkPasswordField", fieldValue: password });
+    console.log(emailAddress, password)
     emailRef.current!.value = '';
     passwordRef.current!.value = '';
-    setLoading(false);
+    // setLoading(false);
   };
 
   const fetchUserData = async (id: string | undefined) => {
@@ -77,7 +75,7 @@ export default function useLogin() {
         dispatchToStore,
         setUserCredentials
       );
-      dispatch({ type: 'reset' });
+      dispatch({ type: "reset" });
     }
   }, [formErrors]);
 

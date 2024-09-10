@@ -5,6 +5,7 @@ import {
   DataSnapshot,
   update,
   remove,
+  Database,
 } from 'firebase/database';
 import {
   getCart,
@@ -22,13 +23,17 @@ import {
 import { Auth } from 'firebase/auth';
 import {
   dateFormatter,
-  extractCategories,
-  generateProductId,
+
   getCartTotal,
   mergeIdsToProducts,
 } from './helpers';
+import { AnyAction, Dispatch } from 'redux';
+import Redux from "redux"
+import { CartItemProps, userCredentials } from '../types';
+import React from 'react';
+
 export const sendTransaction = async (
-  cartItems: [],
+  cartItems: CartItemProps[],
   auth: Auth,
   currentUserId: string
 ) => {
@@ -36,7 +41,7 @@ export const sendTransaction = async (
     removeFromDB(`/users/${currentUserId}/cart`, eCommerceDB);
     const total = getCartTotal(cartItems);
     const transactions = await readFromDB('/transactions', adminDB);
-    const transactionRes: any = await transactions.json();
+    const transactionRes = await transactions.json();
     const transactionDetails = {
       checkoutDate: dateFormatter.format(new Date()),
       purchasedItems: [...cartItems],
@@ -46,9 +51,7 @@ export const sendTransaction = async (
       userId: currentUserId,
     };
     if (transactionRes) {
-      // transactionRes is an Array   in transactions i don't wanna to have to fetch the
-      // transactions and then insert the old transaction to an Array i wanna just
-      // push them to the transactions location
+
       const fields = [...transactionRes, { ...transactionDetails }];
       await writeToDB('/transactions', fields, eCommerceDB);
       return true;
@@ -69,9 +72,9 @@ export const sendTransaction = async (
 };
 
 export const makeCartTransaction = async (
-  dispatchToStore: any,
+  dispatchToStore: Dispatch<AnyAction>,
   message: string,
-  cartItems: any
+  cartItems: CartItemProps[]
 ) => {
   const cart = mergeIdsToProducts(cartItems ? cartItems : []);
   dispatchToStore(pendingItem('pending'));
@@ -82,7 +85,7 @@ export const makeCartTransaction = async (
 
 export const checkCartItemTransaction = (
   status: number,
-  dispatchToStore: any,
+  dispatchToStore: Dispatch<AnyAction>,
   message: string
 ) => {
   if (status === 200) {
@@ -96,12 +99,13 @@ export const checkCartItemTransaction = (
 };
 
 export const addItemToCart = async (
-  item: any,
+  item: CartItemProps,
   userId: string,
-  dispatchToStore: any,
-  dispatch?: any
+  dispatchToStore: Redux.Dispatch<AnyAction>,
+  dispatch?: React.Dispatch<any>
 ) => {
   console.log(item.quantity);
+
   dispatch && dispatch({ type: 'loading' });
   const cartRef = ref(eCommerceDB, `/users/${userId}/cart/${item.id}`);
   let itemQuantity = await readFromDB(
@@ -130,8 +134,8 @@ export const addItemToCart = async (
 export const deleteItem = async (
   productId: string,
   userId: string,
-  dispatchToStore: any,
-  dispatch?: any
+  dispatchToStore: Dispatch<AnyAction>,
+  dispatch?: React.Dispatch<any>
 ) => {
   dispatch && dispatch({ type: 'loading' });
   const cartRef = ref(eCommerceDB, `/users/${userId}/cart`);
@@ -152,10 +156,10 @@ export const deleteItem = async (
 };
 
 export const decrementItem = async (
-  item: any,
+  item: CartItemProps,
   userId: string,
-  dispatchToStore: any,
-  dispatch: any
+  dispatchToStore: Dispatch<AnyAction>,
+  dispatch: React.Dispatch<any>
 ) => {
   dispatch && dispatch({ type: 'loading' });
   const cartRef = ref(eCommerceDB, `/users/${userId}/cart`);
@@ -163,10 +167,9 @@ export const decrementItem = async (
   if (item.quantity === 1) {
     remove(childRef);
   } else {
-    update(childRef, {
-      quantity: item.quantity--,
-      ...item,
-    });
+    const newItem = { ...item };
+    newItem.quantity--;
+    update(childRef, newItem);
   }
   onValue(
     cartRef,
@@ -182,9 +185,9 @@ export const decrementItem = async (
 };
 
 export const addUserEntry = async (
-  check: any,
-  userData: any,
-  database: any
+  check: string,
+  userData: userCredentials,
+  database: Database
 ) => {
   readFromDB('/activites', adminDB);
   const exisitingActivites = await readFromDB('/activites', adminDB);
@@ -210,80 +213,3 @@ export const addUserEntry = async (
   }
 };
 
-/**
- * remaps products array  into a object with each of  the `category` , `subCategories` as `keys`
- * and the products for each categories as as an Array `value`
- * @param url
- */
-export const remapProducts = async (url: any) => {
-  // remap products with unqiue ids for each product this is a modified version
-  const get = await fetch(url);
-  const data = await get.json();
-  console.log(data);
-  const products: any = {
-    electronics: {
-      cameras: [],
-      headphones: [],
-      security_surveillance: [],
-      vehicleElectronics: [],
-    },
-    menFashion: {
-      accessories: [],
-      clothing: [],
-      shoes: [],
-      watches: [],
-    },
-    womenFashion: {
-      accessories: [],
-      clothing: [],
-      shoes: [],
-      handbags: [],
-    },
-    dataStorage: [],
-    books: [],
-    computerPerpherials: [],
-    videoGames: [],
-  };
-  console.log(products.electronics);
-
-  data.map((el: any) => {
-    let product;
-    if (el?.subCategory) {
-      el.subCategory.replace('/', '-');
-      product = {
-        ...el,
-        subCategory: el.subCategory.replace('/', '-'),
-        price: Math.floor(Math.random() * 100) + 20,
-      };
-      console.log(product);
-    } else {
-      product = {
-        ...el,
-        price: Math.floor(Math.random() * 100) + 20,
-      };
-    }
-    // we can replace this with the extract categories function
-    const { mainCategory: category, subCategory } = extractCategories(
-      product?.subCategory ? product.subCategory : el.category
-    );
-    if (subCategory) {
-      if (subCategory === 'security&surveillance') {
-        products[category]['security_surveillance'].push({
-          ...product,
-          id: generateProductId(product?.subCategory),
-        });
-      } else {
-        products[category][subCategory].push({
-          ...product,
-          id: generateProductId(product?.subCategory),
-        });
-      }
-    } else {
-      products[category!].push({
-        ...product,
-        id: generateProductId(el.category),
-      });
-    }
-  });
-  writeToDB('/products', products, eCommerceDB);
-};

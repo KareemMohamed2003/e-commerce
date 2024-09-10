@@ -8,7 +8,7 @@ import '../sass/cart.scss';
 import '../sass/loader.scss';
 export default function Cart() {
   const { cartState, dispatch, cartTotal } = useCart();
-  const { handleTransaction } = useTransaction(cartState?.cart, dispatch);
+  const { handleTransaction } = useTransaction(cartState?.cart as [], dispatch);
   const navigate = useNavigate();
   return (
     <Fragment>
@@ -44,12 +44,12 @@ export default function Cart() {
           </div>
         )}
         {cartState?.cart instanceof Array
-          ? cartState?.cart.map((el: any, index: any) => (
+          ? cartState?.cart.map((el, index) => (
               <CartItem
                 key={index}
-                itemName={el.imageTitle}
-                itemPrice={el.price}
-                itemImg={el.imageUrl}
+                imageTitle={el.imageTitle}
+                price={el.price}
+                imageUrl={el.imageUrl}
                 quantity={el.quantity}
                 category={el.category}
                 id={el.id}

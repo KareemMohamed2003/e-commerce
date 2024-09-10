@@ -28,7 +28,7 @@ export const adminConfig = {
 };
 export const app = initializeApp(firebaseConfig);
 export const adminApp = initializeApp(adminConfig, 'adminApp');
-export const eCommerceDB = getDatabase(app);
+export const eCommerceDB = getDatabase(app)
 export const adminDB = getDatabase(adminApp);
 export const eCommerceAuth = getAuth(app);
 
@@ -125,7 +125,7 @@ export const changeUsername = (
         updateProfile(auth.currentUser, {
           displayName: username,
         })
-          .then(() => {})
+          .then(() => { })
           .catch((error) => {
             // console.log(error)
           });
@@ -148,6 +148,8 @@ export const login = async (
   dispatchToStore,
   setUserCredentials
 ) => {
+  console.log(email,
+    password,)
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;

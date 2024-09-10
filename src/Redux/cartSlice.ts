@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { CartSliceProps } from '../types';
+import { CartItemProps, CartSliceProps, ProductProps } from '../types';
 
 const initialState: CartSliceProps = {
   isItemChanged: false,
@@ -61,7 +61,7 @@ export const cartSlice = createSlice({
         };
     },
     getCart: (state, action) => {
-      const cart: any = action.payload;
+      const cart: CartItemProps[] = action.payload;
 
       return {
         ...state,

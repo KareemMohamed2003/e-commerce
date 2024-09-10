@@ -4,6 +4,7 @@ import Product from '../components/Product';
 import styles from '../sass/selectedCategory.module.scss';
 import Loader from '../components/loaders/Loader';
 import '../sass/cart.scss';
+import { ProductProps } from '../types';
 export default function SelectedCategory() {
   const selectedProducts = useAppSelector(
     (state) => state.selectedProducts.productsToDisplay
@@ -13,7 +14,9 @@ export default function SelectedCategory() {
   );
 
   const products = useAppSelector((state) => state.products.products);
-  const [selectedItems, setSelectedItems] = useState<any>(null);
+  const [selectedItems, setSelectedItems] = useState<ProductProps[] | null>(
+    null
+  );
   const [category, setCategory] = useState<string>();
   console.log('selected product', selectedProducts);
   useEffect(() => {
@@ -27,7 +30,7 @@ export default function SelectedCategory() {
       <h1 className={styles.category}>{category && category}</h1>
       <section className={styles.selectedProducts}>
         {selectedItems ? (
-          selectedItems.map((el: any, index: number) => (
+          selectedItems.map((el, index: number) => (
             <Product
               key={index}
               imageUrl={el.imageUrl}

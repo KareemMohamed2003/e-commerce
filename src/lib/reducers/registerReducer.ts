@@ -1,4 +1,6 @@
-export const initialState = {
+import { registerError } from "../../types";
+
+export const initialState: registerError = {
   emailError: false,
   emailErrorMsg: '',
   emailValue: null,
@@ -10,16 +12,17 @@ export const initialState = {
   usernameValue: null,
 };
 
-export function errorReducer(state: any, action: any) {
+export function errorReducer(state: registerError, action: any): registerError {
   switch (action.type) {
     case 'checkEmailField':
-      if (action.fieldValue === '' || action.fieldValue == null)
+      console.log("action ", action)
+      if (!action.fieldValue)
         return {
           ...state,
           emailError: true,
           emailErrorMsg: 'EMAIL FIELD IS EMPTY',
           emailValue: null,
-        };
+        }
 
       if (action.fieldValue.length < 5) {
         return {
@@ -85,6 +88,7 @@ export function errorReducer(state: any, action: any) {
     case 'reset':
       return initialState;
     default:
-      break;
+      return initialState
+
   }
 }

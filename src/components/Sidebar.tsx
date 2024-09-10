@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { displayProducts } from '../Redux/SelectedCategorySlice';
+import { ISideBar, selectedCategoryType } from '../types';
 import '../sass/navbar.scss';
-import { ISideBar } from '../types';
 
 export default function SideBar({
   setMenuToggle,
@@ -11,8 +11,10 @@ export default function SideBar({
   dispatch,
   productsState,
 }: ISideBar) {
-  const selectProducts = (el: string) => {
-    dispatch(displayProducts({ state: productsState, type: el }));
+  const selectProducts = (el: selectedCategoryType) => {
+    dispatch(
+      displayProducts({ state: productsState?.products?.products, type: el })
+    );
   };
 
   return (
@@ -22,7 +24,7 @@ export default function SideBar({
       </div>
       <h2 className="menu-heading">shop by department</h2>
       <h2>electronics</h2>
-      {electronics.map((el: string) => (
+      {electronics.map((el) => (
         <Link
           reloadDocument
           onClick={() => selectProducts(el)}
@@ -38,7 +40,7 @@ export default function SideBar({
       {womenCategories.map((el: string) => (
         <Link
           reloadDocument
-          onClick={() => selectProducts(el)}
+          onClick={() => selectProducts(el as selectedCategoryType)}
           className="link"
           key={el}
           to={`/home/SelectedCategory/${el}`}
@@ -54,7 +56,7 @@ export default function SideBar({
           to={`/home/SelectedCategory/${el}`}
           key={el}
           className="link"
-          onClick={() => selectProducts(el)}
+          onClick={() => selectProducts(el as selectedCategoryType)}
         >
           {el}
         </Link>
